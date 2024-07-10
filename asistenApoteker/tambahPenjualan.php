@@ -1,5 +1,53 @@
 <!DOCTYPE html>
-<html lang="en">
+<?php
+    require '../config.php';
+
+    if (!$conn) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
+    // Query untuk tabel periode (bulan)
+    $queryPeriodeBulan = "SELECT id_periode, bulan FROM periode ORDER BY bulan";
+    $resPeriodeBulan = mysqli_query($conn, $queryPeriodeBulan);
+    if (!$resPeriodeBulan) {
+        die("Query failed: " . mysqli_error($conn));
+    }
+
+    // Query untuk tabel periode (tahun)
+    $queryPeriodeTahun = "SELECT id_periode, tahun FROM periode ORDER BY tahun";
+    $resPeriodeTahun = mysqli_query($conn, $queryPeriodeTahun);
+    if (!$resPeriodeTahun) {
+        die("Query failed: " . mysqli_error($conn));
+    }
+
+    // Query untuk tabel obat
+    $queryObat = "SELECT id_obat, nama_obat FROM obat ORDER BY nama_obat";
+    $resObat = mysqli_query($conn, $queryObat);
+    if (!$resObat) {
+        die("Query failed: " . mysqli_error($conn));
+    }
+    // Query untuk tabel jenis
+    $queryJenis = "SELECT id_jenis, nama_jenis FROM jenis ORDER BY nama_jenis";
+    $resJenis = mysqli_query($conn, $queryJenis);
+    if (!$resJenis) {
+        die("Query failed: " . mysqli_error($conn));
+    }
+
+    // Query untuk tabel satuan
+    $querySatuan = "SELECT id_satuan, nama_satuan FROM satuan ORDER BY nama_satuan";
+    $resSatuan = mysqli_query($conn, $querySatuan);
+    if (!$resSatuan) {
+        die("Query failed: " . mysqli_error($conn));
+    }
+
+    // Query untuk tabel supplier
+    $querySupplier = "SELECT id_supplier, nama_supplier FROM supplier ORDER BY nama_supplier";
+    $resSupplier = mysqli_query($conn, $querySupplier);
+    if (!$resSupplier) {
+        die("Query failed: " . mysqli_error($conn));
+    }
+    
+  ?>
+  
 
 <head>
 
@@ -9,7 +57,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Penjualan</title>
+    <title>Tambah Obat</title>
 
     <!-- Custom fonts for this template-->
     <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -54,7 +102,7 @@
 
 
             <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
+            <li class="nav-item active">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
                     aria-expanded="true" aria-controls="collapsePages">
                     <i class="fas fa-fw fa-folder"></i>
@@ -80,7 +128,7 @@
 
             
             <!-- Nav Item - Tables -->
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link" href="penjualan.php">
                     <i class="fas fa-fw fa-money-bill-wave"></i>
                     <span>Penjualan</span></a>
@@ -177,43 +225,81 @@
                         <!-- DataTales Example -->
                         <div class="card shadow mb-4">
                             <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary">Data Penjualan</h6>
-                            </div>
-                            <div class="d-flex justify-content-between mb-3 mt-3 mx-3">
-                            <a href="tambahPenjualan.php" class="btn btn-success">Tambah Data</a>
-                                <form class="form-inline">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control bg-light border-0 small"
-                                            placeholder="Search for..." aria-label="Search"
-                                            aria-describedby="basic-addon2">
-                                        <div class="input-group-append">
-                                            <button class="btn btn-primary" type="button">
-                                                <i class="fas fa-search fa-sm"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </form>
+                                <h6 class="m-0 font-weight-bold text-primary">Tambah Data Penjualan</h6>
                             </div>
                             <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                        <thead>
-                                            <tr>
-                                                <th>No</th>
-                                                <th>Bulan</th>
-                                                <th>Tahun</th>
-                                                <th>Obat</th>
-                                                <th>Jenis</th>
-                                                <th>Satuan</th>
-                                                <th>Jumlah Penjualan</th>
-                                                <th>Aksi</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            
-                                        </tbody>
-                                    </table>
+                            <form>
+                                <div class="form-group">
+                                    <label for="bulan">Pilih Bulan</label>
+                                    <select class="form-control" id="periode" name="bulan">
+                                        <option>Bulan</option>
+                                        <?php
+                                        while ($rowPeriodeBulan = mysqli_fetch_assoc($resPeriodeBulan)) {
+                                            echo "<option value='" . $rowPeriodeBulan['id_periode'] . "'>" . $rowPeriodeBulan['bulan'] . "</option>";
+                                        }
+                                        ?>
+                                    </select>
                                 </div>
+                                <div class="form-group">
+                                    <label for="tahun">Pilih Tahun</label>
+                                    <select class="form-control" id="periode" name="tahun">
+                                        <option>Tahun</option>
+                                        <?php
+                                        while ($rowPeriodeTahun = mysqli_fetch_assoc($resPeriodeTahun)) {
+                                            echo "<option value='" . $rowPeriodeTahun['id_periode'] . "'>" . $rowPeriodeTahun['tahun'] . "</option>";
+                                        }
+                                        ?>
+                                    </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="obat">Obat</label>
+                                        <select class="form-control" id="obat" name="obat">
+                                            <option>Pilih Obat</option>
+                                            <?php
+                                            while ($rowObat = mysqli_fetch_assoc($resObat)) {
+                                                echo "<option value='" . $rowObat['id_obat'] . "'>" . $rowObat['nama_obat'] . "</option>";
+                                            }
+                                            ?>
+                                        </select>
+                                    </div>
+                                <div class="form-group">
+                                    <label for="jenisObat">Jenis</label>
+                                    <select class="form-control" id="jenisObat" name="jenisObat">
+                                        <option>Pilih Jenis</option>
+                                        <?php
+                                        while ($rowJenis = mysqli_fetch_assoc($resJenis)) {
+                                            echo "<option value='" . $rowJenis['id_jenis'] . "'>" . $rowJenis['nama_jenis'] . "</option>";
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="satuanObat">Satuan</label>
+                                    <select class="form-control" id="satuanObat" name="satuanObat">
+                                        <option>Pilih Satuan</option>
+                                        <?php
+                                        while ($rowSatuan = mysqli_fetch_assoc($resSatuan)) {
+
+                                            echo "<option value='" . $rowSatuan['id_satuan'] . "'>" . $rowSatuan['nama_satuan'] . "</option>";
+                                        }
+
+                                        ?>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="supplierObat">Supplier</label>
+                                    <select class="form-control" id="supplierObat" name="supplierObat">
+                                        <option>Pilih Supplier</option>
+                                        <?php
+                                        while ($rowSupplier = mysqli_fetch_assoc($resSupplier)) {
+                                            echo "<option value='" . $rowSupplier['id_supplier'] . "'>" . $rowSupplier['nama_supplier'] . "</option>";
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn btn-success">Tambah Data</button>
+                                <a href="obat.php" class="btn btn-secondary">Kembali</a>
+                            </form>
                             </div>
                         </div>
     
@@ -284,4 +370,14 @@
 
 </body>
 
+</html>    <script src="../js/demo/chart-pie-demo.js"></script>
+
+</body>
+
 </html>
+    <script src="../js/demo/chart-pie-demo.js"></script>
+
+</body>
+
+</html>
+

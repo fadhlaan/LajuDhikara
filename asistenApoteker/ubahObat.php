@@ -205,14 +205,18 @@ if (!$res) {
                                 <h6 class="m-0 font-weight-bold text-primary">Edit Data Obat</h6>
                             </div>
                             <div class="card-body">
-                            <form>
+                            <form method="post" action="prosesUbahObat.php">
+                                <div class="form-group">
+                                    <label for="idObat">ID Obat</label>
+                                    <input type="text" class="form-control" name="id_obat" id="idObat" value="<?php echo $row['id_obat']; ?>" placeholder="Masukkan Nama Obat" readonly>
+                                </div>
                                 <div class="form-group">
                                     <label for="namaObat">Nama Obat</label>
-                                    <input type="text" class="form-control" id="namaObat" value="<?php echo $row['nama_obat']; ?>" placeholder="Masukkan Nama Obat">
+                                    <input type="text" class="form-control" name="nama_obat" id="namaObat" value="<?php echo $row['nama_obat']; ?>" placeholder="Masukkan Nama Obat">
                                 </div>
                                 <div class="form-group">
                                     <label for="jenisObat">Jenis</label>
-                                    <select class="form-control" id="jenisObat">
+                                    <select class="form-control" name="id_jenis" id="id_jenis">
                                         <option value="">Pilih Jenis</option>
                                         <?php
 											while ($arrayjenis = mysqli_fetch_array($resjenis)) {
@@ -224,7 +228,7 @@ if (!$res) {
                                 </div>
                                 <div class="form-group">
                                     <label for="satuanObat">Satuan</label>
-                                    <select class="form-control" id="satuanObat">
+                                    <select class="form-control" name="id_satuan" id="satuanObat">
                                         <option>Pilih Satuan</option>
                                         <?php
 											while ($arraysatuan = mysqli_fetch_array($ressatuan)) {
@@ -235,8 +239,8 @@ if (!$res) {
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="supplierObat">Supplier</label>
-                                    <select class="form-control" id="supplierObat">
+                                    <label for="id_supplier">Supplier</label>
+                                    <select class="form-control" name="id_supplier" id="id_supplier">
                                         <option>Pilih Supplier</option>
                                         <?php
 											while ($arraysupplier = mysqli_fetch_array($ressupplier)) {
@@ -245,8 +249,9 @@ if (!$res) {
 											}
 											?>
                                 </div>
-                                <input type="submit" class="btn btn-success" name="submit" value="Submit">
-                                <a href="supplier.php" class="btn btn-secondary">Kembali</a>
+                                <div class="mb-3"></div> <!-- Tambahkan jarak antara form dan button -->
+                                <input type="submit" class="btn btn-success" name="submit" value="submit">
+                                <a href="obat.php" class="btn btn-secondary">Kembali</a>
                             </form>
                             </div>
                         </div>

@@ -234,7 +234,7 @@ if ($obat_result) {
                                         <td><?php echo htmlspecialchars($row['nama_supplier']); ?></td>
                                         <td>
                                             <a class="btn btn-warning" href="ubahObat.php?id_obat=<?php echo htmlspecialchars($row['id_obat']); ?>">Edit</a>
-                                            <a class="btn btn-danger" href="#" onclick="konfirmasiHapus(<?php echo $row['id_obat']; ?>)">Hapus</a>
+                                            <a class="btn btn-danger" href="hapusObat.php?id_obat=<?php echo htmlspecialchars($row['id_obat']); ?>" onclick="konfirmasiHapus(<?php echo $row['id_obat']; ?>)">Hapus</a>
                                         </td>
                                         </tr>
                                         <?php endforeach; ?>

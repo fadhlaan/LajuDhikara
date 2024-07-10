@@ -246,7 +246,7 @@ if (!$res) {
 											?>
                                 </div>
                                 <input type="submit" class="btn btn-success" name="submit" value="Submit">
-                                <a href="supplier.php" class="btn btn-secondary">Kembali</a>
+                                <a href="obat.php" class="btn btn-secondary">Kembali</a>
                             </form>
                             </div>
                         </div>

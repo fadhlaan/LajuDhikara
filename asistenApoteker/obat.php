@@ -1,4 +1,20 @@
 <!DOCTYPE html>
+<?php
+require '../config.php';
+
+// Gantikan pemanggilan query() dengan mysqli_query()
+$conn = mysqli_connect("localhost", "root", "", "db_laju");
+$obat_result = mysqli_query($conn, "SELECT o.*, jen.nama_jenis, sat.nama_satuan, sup.nama_supplier 
+                                        FROM obat o
+                                        JOIN jenis jen ON o.id_jenis = jen.id_jenis
+                                        JOIN satuan sat ON o.id_satuan = sat.id_satuan
+                                        JOIN supplier sup ON o.id_supplier = sup.id_supplier");
+
+// Periksa apakah kueri berhasil sebelum melanjutkan
+if ($obat_result) {
+    $obat = mysqli_fetch_all($obat_result, MYSQLI_ASSOC);
+}
+?>
 <html lang="en">
 
 <head>
@@ -208,7 +224,20 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            
+                                        <?php $i = 1; ?>
+                                        <?php foreach ($obat as $row) : ?>
+                                        <tr>
+                                        <td><?php echo htmlspecialchars($i++); ?></td>
+                                        <td><?php echo htmlspecialchars($row['nama_obat']); ?></td>
+                                        <td><?php echo htmlspecialchars($row['nama_jenis']); ?></td>
+                                        <td><?php echo htmlspecialchars($row['nama_satuan']); ?></td>
+                                        <td><?php echo htmlspecialchars($row['nama_supplier']); ?></td>
+                                        <td>
+                                            <a class="btn btn-warning" href="ubahObat.php?id_obat=<?php echo htmlspecialchars($row['id_obat']); ?>">Edit</a>
+                                            <a class="btn btn-danger" href="#" onclick="konfirmasiHapus(<?php echo $row['id_obat']; ?>)">Hapus</a>
+                                        </td>
+                                        </tr>
+                                        <?php endforeach; ?>
                                         </tbody>
                                     </table>
                                 </div>

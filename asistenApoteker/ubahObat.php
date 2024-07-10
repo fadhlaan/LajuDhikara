@@ -249,8 +249,12 @@ if (!$res) {
 											}
 											?>
                                 </div>
+<<<<<<< HEAD
                                 <div class="mb-3"></div> <!-- Tambahkan jarak antara form dan button -->
                                 <input type="submit" class="btn btn-success" name="submit" value="submit">
+=======
+                                <input type="submit" class="btn btn-success" name="submit" value="Submit">
+>>>>>>> d3da5fc9dc48a263753073e6ca5ad81020d44b4c
                                 <a href="obat.php" class="btn btn-secondary">Kembali</a>
                             </form>
                             </div>

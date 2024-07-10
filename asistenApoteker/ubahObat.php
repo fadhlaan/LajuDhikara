@@ -245,8 +245,8 @@ if (!$res) {
 											}
 											?>
                                 </div>
-                                <button type="submit" class="btn btn-success">Edit Data</button>
-                                <a href="obat.php" class="btn btn-secondary">Kembali</a>
+                                <input type="submit" class="btn btn-success" name="submit" value="Submit">
+                                <a href="supplier.php" class="btn btn-secondary">Kembali</a>
                             </form>
                             </div>
                         </div>

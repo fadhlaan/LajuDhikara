@@ -1,4 +1,30 @@
 <!DOCTYPE html>
+<?php
+include "../config.php";
+if (!$conn) {
+	die("Connection failed: " . mysqli_connect_error());
+}
+
+// Jalankan query dengan JOIN yang benar
+$get_id = $_GET['id_obat'];
+$query = "SELECT * FROM obat WHERE id_obat='$get_id'";
+$res = mysqli_query($conn, $query);
+$datajenis = "SELECT * FROM jenis";
+$resjenis = mysqli_query($conn, $datajenis);
+$datasatuan = "SELECT * FROM satuan";
+$ressatuan = mysqli_query($conn, $datasatuan);
+$datasupplier = "SELECT * FROM supplier";
+$ressupplier = mysqli_query($conn, $datasupplier);
+$row = mysqli_fetch_assoc($res);
+// echo "<pre>";
+// print_r($row);
+// echo "</pre>";
+
+// Periksa apakah query berhasil
+if (!$res) {
+	die("Query failed: " . mysqli_error($conn));
+}
+?>
 <html lang="en">
 
 <head>
@@ -9,12 +35,11 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Obat</title>
+    <title>Ubah Obat</title>
 
     <!-- Custom fonts for this template-->
     <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
@@ -31,7 +56,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
                 <div class="sidebar-brand-icon icon-size">
                     <img src="../img/Logo.png" alt="Logo" style="width: 50px; height: 50px;">
                 </div>
@@ -43,7 +68,7 @@
 
             <!-- Nav Item - Beranda -->
             <li class="nav-item">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="index.php">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Beranda</span></a>
             </li>
@@ -62,18 +87,18 @@
                 </a>
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="obat.html"><i class="fas fa-pills"></i> Obat</a>
-                        <a class="collapse-item" href="supplier.html"><i class="fas fa-truck"></i> Supplier</a>
-                        <a class="collapse-item" href="jenis.html"><i class="fas fa-share-alt"></i> Jenis</a>
-                        <a class="collapse-item" href="satuan.html"><i class="fas fa-cog"></i> Satuan</a>
-                        <a class="collapse-item" href="periode.html"><i class="fas fa-calendar"></i> Periode</a>
+                        <a class="collapse-item" href="obat.php"><i class="fas fa-pills"></i> Obat</a>
+                        <a class="collapse-item" href="supplier.php"><i class="fas fa-truck"></i> Supplier</a>
+                        <a class="collapse-item" href="jenis.php"><i class="fas fa-share-alt"></i> Jenis</a>
+                        <a class="collapse-item" href="satuan.php"><i class="fas fa-cog"></i> Satuan</a>
+                        <a class="collapse-item" href="periode.php"><i class="fas fa-calendar"></i> Periode</a>
                     </div>
                 </div>
             </li>
             
             <!-- Nav Item - Tables -->
             <li class="nav-item">
-                <a class="nav-link" href="obatMasuk.html">
+                <a class="nav-link" href="obatMasuk.php">
                     <i class="fas fa-fw fa-dolly-flatbed"></i>
                     <span>Obat Masuk</span></a>
             </li>
@@ -81,14 +106,14 @@
             
             <!-- Nav Item - Tables -->
             <li class="nav-item">
-                <a class="nav-link" href="penjualan.html">
+                <a class="nav-link" href="penjualan.php">
                     <i class="fas fa-fw fa-money-bill-wave"></i>
                     <span>Penjualan</span></a>
             </li>
             
             <!-- Nav Item - Charts -->
             <li class="nav-item">
-                <a class="nav-link" href="pembelian.html">
+                <a class="nav-link" href="pembelian.php">
                     <i class="fas fa-fw fa-shopping-cart"></i>
                     <span>Pembelian</span></a>
             </li>
@@ -177,41 +202,52 @@
                         <!-- DataTales Example -->
                         <div class="card shadow mb-4">
                             <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary">Data Obat</h6>
-                            </div>
-                            <div class="d-flex justify-content-between mb-3 mt-3 mx-3">
-                                <a href="tambahObat.html" class="btn btn-success">Tambah Data</a>
-                                <form class="form-inline">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control bg-light border-0 small"
-                                            placeholder="Search for..." aria-label="Search"
-                                            aria-describedby="basic-addon2">
-                                        <div class="input-group-append">
-                                            <button class="btn btn-primary" type="button">
-                                                <i class="fas fa-search fa-sm"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </form>
+                                <h6 class="m-0 font-weight-bold text-primary">Edit Data Obat</h6>
                             </div>
                             <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                        <thead>
-                                            <tr>
-                                                <th>No</th>
-                                                <th>Nama Obat</th>
-                                                <th>Jenis</th>
-                                                <th>Satuan</th>
-                                                <th>Supplier</th>
-                                                <th>Aksi</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            
-                                        </tbody>
-                                    </table>
+                            <form>
+                                <div class="form-group">
+                                    <label for="namaObat">Nama Obat</label>
+                                    <input type="text" class="form-control" id="namaObat" value="<?php echo $row['nama_obat']; ?>" placeholder="Masukkan Nama Obat">
                                 </div>
+                                <div class="form-group">
+                                    <label for="jenisObat">Jenis</label>
+                                    <select class="form-control" id="jenisObat">
+                                        <option value="">Pilih Jenis</option>
+                                        <?php
+											while ($arrayjenis = mysqli_fetch_array($resjenis)) {
+												$selected = isset($row['id_jenis']) && $arrayjenis['id_jenis'] == $row['id_jenis'] ? 'selected' : '';
+												echo "<option $selected value='" . $arrayjenis['id_jenis'] . "'>" . $arrayjenis['nama_jenis'] . "</option>";
+											}
+											?>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="satuanObat">Satuan</label>
+                                    <select class="form-control" id="satuanObat">
+                                        <option>Pilih Satuan</option>
+                                        <?php
+											while ($arraysatuan = mysqli_fetch_array($ressatuan)) {
+												$selected = isset($row['id_satuan']) && $arraysatuan['id_satuan'] == $row['id_satuan'] ? 'selected' : '';
+												echo "<option $selected value='" . $arraysatuan['id_satuan'] . "'>" . $arraysatuan['nama_satuan'] . "</option>";
+											}
+											?>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="supplierObat">Supplier</label>
+                                    <select class="form-control" id="supplierObat">
+                                        <option>Pilih Supplier</option>
+                                        <?php
+											while ($arraysupplier = mysqli_fetch_array($ressupplier)) {
+												$selected = isset($row['id_supplier']) && $arraysupplier['id_supplier'] == $row['id_supplier'] ? 'selected' : '';
+												echo "<option $selected value='" . $arraysupplier['id_supplier'] . "'>" . $arraysupplier['nama_supplier'] . "</option>";
+											}
+											?>
+                                </div>
+                                <button type="submit" class="btn btn-success">Edit Data</button>
+                                <a href="obat.php" class="btn btn-secondary">Kembali</a>
+                            </form>
                             </div>
                         </div>
     
@@ -257,7 +293,7 @@
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="../login.html">Logout</a>
+                    <a class="btn btn-primary" href="../login.php">Logout</a>
                 </div>
             </div>
         </div>

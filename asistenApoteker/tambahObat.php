@@ -207,14 +207,14 @@
                                 <h6 class="m-0 font-weight-bold text-primary">Tambah Data Obat</h6>
                             </div>
                             <div class="card-body">
-                            <form>
+                            <form method="post" action="prosesTambahObat.php">
                                 <div class="form-group">
-                                    <label for="namaObat">Nama Obat</label>
-                                    <input type="text" class="form-control" id="namaObat" placeholder="Masukkan Nama Obat">
+                                    <label for="nama_obat">Nama Obat</label>
+                                    <input type="text" class="form-control" id="nama_obat" name="nama_obat" placeholder="Masukkan Nama Obat">
                                 </div>
                                 <div class="form-group">
-                                    <label for="jenisObat">Jenis</label>
-                                    <select class="form-control" id="jenisObat" name="jenisObat">
+                                    <label for="nama_jenis">Jenis</label>
+                                    <select class="form-control" id="nama_jenis" name="nama_jenis">
                                         <option>Pilih Jenis</option>
                                         <?php
                                         while ($rowJenis = mysqli_fetch_assoc($resJenis)) {
@@ -224,8 +224,8 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="satuanObat">Satuan</label>
-                                    <select class="form-control" id="satuanObat" name="satuanObat">
+                                    <label for="satuan">Satuan</label>
+                                    <select class="form-control" id="nama_satuan" name="nama_satuan">
                                         <option>Pilih Satuan</option>
                                         <?php
                                         while ($rowSatuan = mysqli_fetch_assoc($resSatuan)) {
@@ -238,8 +238,8 @@
 
                                 </div>
                                 <div class="form-group">
-                                    <label for="supplierObat">Supplier</label>
-                                    <select class="form-control" id="supplierObat" name="supplierObat">
+                                    <label for="supplier">Supplier</label>
+                                    <select class="form-control" id="nama_supplier" name="nama_supplier">
                                         <option>Pilih Supplier</option>
                                         <?php
                                         while ($rowSupplier = mysqli_fetch_assoc($resSupplier)) {
@@ -248,7 +248,7 @@
                                         ?>
                                     </select>
                                 </div>
-                                <button type="submit" class="btn btn-success">Tambah Data</button>
+                                <button type="submit" name="submit"class="btn btn-success">Tambah Data</button>
                                 <a href="obat.php" class="btn btn-secondary">Kembali</a>
                             </form>
                             </div>

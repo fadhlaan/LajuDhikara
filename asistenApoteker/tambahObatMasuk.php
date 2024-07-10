@@ -102,7 +102,7 @@
 
 
             <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item active">
+            <li class="nav-item ">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
                     aria-expanded="true" aria-controls="collapsePages">
                     <i class="fas fa-fw fa-folder"></i>
@@ -120,7 +120,7 @@
             </li>
             
             <!-- Nav Item - Tables -->
-            <li class="nav-item">
+            <li class="nav-item active">
                 <a class="nav-link" href="obatMasuk.php">
                     <i class="fas fa-fw fa-dolly-flatbed"></i>
                     <span>Obat Masuk</span></a>
@@ -296,6 +296,10 @@
                                         }
                                         ?>
                                     </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="jumlahPenerimaan">Jumlah Penerimaan</label>
+                                    <input type="text" class="form-control" id="jumlah_penerimaan" name="jumlah_penerimaan" placeholder="Masukkan Jumlah Penerimaan">
                                 </div>
                                 <button type="submit" class="btn btn-success">Tambah Data</button>
                                 <a href="obat.php" class="btn btn-secondary">Kembali</a>

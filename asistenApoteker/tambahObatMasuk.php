@@ -263,46 +263,11 @@
                                         </select>
                                     </div>
                                 <div class="form-group">
-                                    <label for="jenisObat">Jenis</label>
-                                    <select class="form-control" id="jenisObat" name="jenisObat">
-                                        <option>Pilih Jenis</option>
-                                        <?php
-                                        while ($rowJenis = mysqli_fetch_assoc($resJenis)) {
-                                            echo "<option value='" . $rowJenis['id_jenis'] . "'>" . $rowJenis['nama_jenis'] . "</option>";
-                                        }
-                                        ?>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="satuanObat">Satuan</label>
-                                    <select class="form-control" id="satuanObat" name="satuanObat">
-                                        <option>Pilih Satuan</option>
-                                        <?php
-                                        while ($rowSatuan = mysqli_fetch_assoc($resSatuan)) {
-
-                                            echo "<option value='" . $rowSatuan['id_satuan'] . "'>" . $rowSatuan['nama_satuan'] . "</option>";
-                                        }
-
-                                        ?>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="supplierObat">Supplier</label>
-                                    <select class="form-control" id="supplierObat" name="supplierObat">
-                                        <option>Pilih Supplier</option>
-                                        <?php
-                                        while ($rowSupplier = mysqli_fetch_assoc($resSupplier)) {
-                                            echo "<option value='" . $rowSupplier['id_supplier'] . "'>" . $rowSupplier['nama_supplier'] . "</option>";
-                                        }
-                                        ?>
-                                    </select>
-                                </div>
-                                <div class="form-group">
                                     <label for="jumlahPenerimaan">Jumlah Penerimaan</label>
                                     <input type="text" class="form-control" id="jumlah_penerimaan" name="jumlah_penerimaan" placeholder="Masukkan Jumlah Penerimaan">
                                 </div>
                                 <button type="submit" class="btn btn-success">Tambah Data</button>
-                                <a href="obat.php" class="btn btn-secondary">Kembali</a>
+                                <a href="obatMasuk.php" class="btn btn-secondary">Kembali</a>
                             </form>
                             </div>
                         </div>

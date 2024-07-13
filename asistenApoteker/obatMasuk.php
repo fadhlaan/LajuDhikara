@@ -1,4 +1,29 @@
 <!DOCTYPE html>
+<?php
+require '../config.php';
+
+// Gantikan pemanggilan query() dengan mysqli_query()
+$conn = mysqli_connect("localhost", "root", "", "db_laju");
+$obat_masuk_result = mysqli_query($conn, "SELECT
+om.*,
+p.bulan AS bulan,
+p.tahun AS tahun,
+o.nama_obat,
+j.nama_jenis,
+s.nama_satuan,
+sp.nama_supplier
+FROM obat_masuk om
+JOIN periode p ON om.id_periode = p.id_periode
+JOIN obat o ON om.id_obat = o.id_obat
+JOIN jenis j ON o.id_jenis = j.id_jenis
+JOIN supplier sp ON o.id_supplier = sp.id_supplier
+JOIN satuan s ON o.id_satuan = s.id_satuan;");
+
+// Periksa apakah kueri berhasil sebelum melanjutkan
+if ($obat_masuk_result) {
+    $obat_masuk = mysqli_fetch_all($obat_masuk_result, MYSQLI_ASSOC);
+}
+?>
 <html lang="en">
 
 <head>
@@ -205,12 +230,29 @@
                                                 <th>Obat</th>
                                                 <th>Jenis</th>
                                                 <th>Satuan</th>
+                                                <th>Supplier</th>
                                                 <th>Jumlah Penerimaan</th>
                                                 <th>Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            
+                                        <?php $i = 1; ?>
+                                        <?php foreach ($obat_masuk as $row) : ?>
+                                        <tr>
+                                        <td><?php echo htmlspecialchars($i++); ?></td>
+                                        <td><?php echo htmlspecialchars($row['bulan']); ?></td>
+                                        <td><?php echo htmlspecialchars($row['tahun']); ?></td>
+                                        <td><?php echo htmlspecialchars($row['nama_obat']); ?></td>
+                                        <td><?php echo htmlspecialchars($row['nama_jenis']); ?></td>
+                                        <td><?php echo htmlspecialchars($row['nama_satuan']); ?></td>
+                                        <td><?php echo htmlspecialchars($row['nama_supplier']); ?></td>
+                                        <td><?php echo htmlspecialchars($row['jumlah_penerimaan']); ?></td>
+                                        <td>
+                                            <a class="btn btn-warning" href="ubahObatMasuk.php?id_obatmasuk=<?php echo htmlspecialchars($row['id_obatmasuk']); ?>">Edit</a>
+                                            <a class="btn btn-danger" href="hapusObat.php?id_obatmasuk=<?php echo htmlspecialchars($row['id_obatmasuk']); ?>" onclick="konfirmasiHapus(<?php echo $row['id_obatmasuk']; ?>)">Hapus</a>
+                                        </td>
+                                        </tr>
+                                        <?php endforeach; ?>
                                         </tbody>
                                     </table>
                                 </div>

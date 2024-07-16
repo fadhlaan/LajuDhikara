@@ -308,6 +308,13 @@ if ($obat_result) {
     <!-- Page level custom scripts -->
     <script src="../js/demo/chart-area-demo.js"></script>
     <script src="../js/demo/chart-pie-demo.js"></script>
+    <script>
+        function konfirmasiHapus(id_obat) {
+            if (confirm('Yakin Ingin Menghapus Data?')) {
+                window.location.href = 'hapusObat.php?id_obat=' + id_obat;
+            }
+        }
+    </script>
 
 </body>
 

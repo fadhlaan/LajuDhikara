@@ -1,52 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
 <?php
 require '../config.php';
 
-if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
-}
-// Query untuk tabel periode (bulan)
+$id_obatmasuk = $_GET['id_obatmasuk'];
+
+$query = "SELECT * FROM obat_masuk WHERE id_obatmasuk = $id_obatmasuk";
+$result = mysqli_query($conn, $query);
+$row = mysqli_fetch_assoc($result);
+
+// Query untuk mendapatkan daftar periode, obat, dan supplier
 $queryPeriodeBulan = "SELECT id_periode, bulan FROM periode ORDER BY bulan";
 $resPeriodeBulan = mysqli_query($conn, $queryPeriodeBulan);
-if (!$resPeriodeBulan) {
-    die("Query failed: " . mysqli_error($conn));
-}
 
-// Query untuk tabel periode (tahun)
 $queryPeriodeTahun = "SELECT id_periode, tahun FROM periode ORDER BY tahun";
 $resPeriodeTahun = mysqli_query($conn, $queryPeriodeTahun);
-if (!$resPeriodeTahun) {
-    die("Query failed: " . mysqli_error($conn));
-}
 
-// Query untuk tabel obat
 $queryObat = "SELECT id_obat, nama_obat FROM obat ORDER BY nama_obat";
 $resObat = mysqli_query($conn, $queryObat);
-if (!$resObat) {
-    die("Query failed: " . mysqli_error($conn));
-}
-// Query untuk tabel jenis
-$queryJenis = "SELECT id_jenis, nama_jenis FROM jenis ORDER BY nama_jenis";
-$resJenis = mysqli_query($conn, $queryJenis);
-if (!$resJenis) {
-    die("Query failed: " . mysqli_error($conn));
-}
-
-// Query untuk tabel satuan
-$querySatuan = "SELECT id_satuan, nama_satuan FROM satuan ORDER BY nama_satuan";
-$resSatuan = mysqli_query($conn, $querySatuan);
-if (!$resSatuan) {
-    die("Query failed: " . mysqli_error($conn));
-}
-
-// Query untuk tabel supplier
-$querySupplier = "SELECT id_supplier, nama_supplier FROM supplier ORDER BY nama_supplier";
-$resSupplier = mysqli_query($conn, $querySupplier);
-if (!$resSupplier) {
-    die("Query failed: " . mysqli_error($conn));
-}
 ?>
+<html lang="en">
 
 <head>
 
@@ -56,11 +27,12 @@ if (!$resSupplier) {
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Tambah Obat</title>
+    <title>Ubah Obat</title>
 
     <!-- Custom fonts for this template-->
     <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
 
     <!-- Custom styles for this template-->
     <link href="../css/sb-admin-2.min.css" rel="stylesheet">
@@ -99,8 +71,9 @@ if (!$resSupplier) {
 
 
             <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item ">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
+            <li class="nav-item active">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
+                    aria-expanded="true" aria-controls="collapsePages">
                     <i class="fas fa-fw fa-folder"></i>
                     <span>Data Master</span>
                 </a>
@@ -114,22 +87,22 @@ if (!$resSupplier) {
                     </div>
                 </div>
             </li>
-
+            
             <!-- Nav Item - Tables -->
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link" href="obatMasuk.php">
                     <i class="fas fa-fw fa-dolly-flatbed"></i>
                     <span>Obat Masuk</span></a>
             </li>
 
-
+            
             <!-- Nav Item - Tables -->
             <li class="nav-item">
                 <a class="nav-link" href="penjualan.php">
                     <i class="fas fa-fw fa-money-bill-wave"></i>
                     <span>Penjualan</span></a>
             </li>
-
+            
             <!-- Nav Item - Charts -->
             <li class="nav-item">
                 <a class="nav-link" href="pembelian.php">
@@ -167,14 +140,18 @@ if (!$resSupplier) {
 
                         <!-- Nav Item - Search Dropdown (Visible Only XS) -->
                         <li class="nav-item dropdown no-arrow d-sm-none">
-                            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-search fa-fw"></i>
                             </a>
                             <!-- Dropdown - Messages -->
-                            <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
+                            <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
+                                aria-labelledby="searchDropdown">
                                 <form class="form-inline mr-auto w-100 navbar-search">
                                     <div class="input-group">
-                                        <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                                        <input type="text" class="form-control bg-light border-0 small"
+                                            placeholder="Search for..." aria-label="Search"
+                                            aria-describedby="basic-addon2">
                                         <div class="input-group-append">
                                             <button class="btn btn-primary" type="button">
                                                 <i class="fas fa-search fa-sm"></i>
@@ -185,31 +162,19 @@ if (!$resSupplier) {
                             </div>
                         </li>
 
-
-
                         <div class="topbar-divider d-none d-sm-block"></div>
 
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
-                                <img class="img-profile rounded-circle" src="../img/undraw_profile.svg">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Asisten Apoteker</span>
+                                <img class="img-profile rounded-circle"
+                                    src="../img/undraw_profile.svg">
                             </a>
                             <!-- Dropdown - User Information -->
-                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Profile
-                                </a>
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Settings
-                                </a>
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Activity Log
-                                </a>
-                                <div class="dropdown-divider"></div>
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="userDropdown">
                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout
@@ -225,42 +190,56 @@ if (!$resSupplier) {
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
-                    <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Tambah Obat Masuk</h1>
-
-                    <!-- Form Tambah Obat -->
-                    <form method="POST" action="prosesTambahObatMasuk.php">
-                        <div class="form-group">
-                            <label for="bulan">Bulan:</label>
-                            <select class="form-control" id="bulan" name="bulan" required>
-                                <?php while ($rowBulan = mysqli_fetch_assoc($resPeriodeBulan)) : ?>
-                                    <option value="<?= $rowBulan['id_periode']; ?>"><?= $rowBulan['bulan']; ?></option>
-                                <?php endwhile; ?>
-                            </select>
+                    <div class="container-fluid">
+                        <!-- DataTales Example -->
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">Edit Data Obat</h6>
+                            </div>
+                            <div class="card-body">
+                            <form method="POST" action="prosesUbahObatMasuk.php">
+                                <input type="hidden" name="id_obatmasuk" value="<?= $row['id_obatmasuk']; ?>">
+                                <div class="form-group">
+                                    <label for="bulan">Bulan:</label>
+                                    <select class="form-control" id="bulan" name="bulan" required>
+                                        <?php while ($rowBulan = mysqli_fetch_assoc($resPeriodeBulan)) : ?>
+                                            <option value="<?= $rowBulan['id_periode']; ?>" <?= $row['id_periode'] == $rowBulan['id_periode'] ? 'selected' : ''; ?>>
+                                                <?= $rowBulan['bulan']; ?>
+                                            </option>
+                                        <?php endwhile; ?>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="tahun">Tahun:</label>
+                                    <select class="form-control" id="tahun" name="tahun" required>
+                                        <?php while ($rowTahun = mysqli_fetch_assoc($resPeriodeTahun)) : ?>
+                                            <option value="<?= $rowTahun['id_periode']; ?>" <?= $row['id_periode'] == $rowTahun['id_periode'] ? 'selected' : ''; ?>>
+                                                <?= $rowTahun['tahun']; ?>
+                                            </option>
+                                        <?php endwhile; ?>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="nama_obat">Nama Obat:</label>
+                                    <select class="form-control" id="nama_obat" name="nama_obat" required>
+                                        <?php while ($rowObat = mysqli_fetch_assoc($resObat)) : ?>
+                                            <option value="<?= $rowObat['id_obat']; ?>" <?= $row['id_obat'] == $rowObat['id_obat'] ? 'selected' : ''; ?>>
+                                                <?= $rowObat['nama_obat']; ?>
+                                            </option>
+                                        <?php endwhile; ?>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="jumlah_penerimaan">Jumlah Penerimaan:</label>
+                                    <input type="number" class="form-control" id="jumlah_penerimaan" name="jumlah_penerimaan" value="<?= $row['jumlah_penerimaan']; ?>" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Ubah Data</button>
+                                <a href="obatMasuk.php" class="btn btn-secondary">Kembali</a>
+                            </form>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="tahun">Tahun:</label>
-                            <select class="form-control" id="tahun" name="tahun" required>
-                                <?php while ($rowTahun = mysqli_fetch_assoc($resPeriodeTahun)) : ?>
-                                    <option value="<?= $rowTahun['id_periode']; ?>"><?= $rowTahun['tahun']; ?></option>
-                                <?php endwhile; ?>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="nama_obat">Nama Obat:</label>
-                            <select class="form-control" id="nama_obat" name="nama_obat" required>
-                                <?php while ($rowObat = mysqli_fetch_assoc($resObat)) : ?>
-                                    <option value="<?= $rowObat['id_obat']; ?>"><?= $rowObat['nama_obat']; ?></option>
-                                <?php endwhile; ?>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="jumlah_penerimaan">Jumlah Penerimaan:</label>
-                            <input type="number" class="form-control" id="jumlah_penerimaan" name="jumlah_penerimaan" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    </form>
-
+    
+                    </div>
                 </div>
                 <!-- /.container-fluid -->
 
@@ -271,7 +250,7 @@ if (!$resSupplier) {
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2021</span>
+                        <span>Copyright &copy; PT. Laju Dhikara Abadi 2024</span>
                     </div>
                 </div>
             </footer>
@@ -289,7 +268,8 @@ if (!$resSupplier) {
     </a>
 
     <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -301,7 +281,7 @@ if (!$resSupplier) {
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
+                    <a class="btn btn-primary" href="../login.php">Logout</a>
                 </div>
             </div>
         </div>
@@ -316,6 +296,13 @@ if (!$resSupplier) {
 
     <!-- Custom scripts for all pages-->
     <script src="../js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="../vendor/chart.js/Chart.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="../js/demo/chart-area-demo.js"></script>
+    <script src="../js/demo/chart-pie-demo.js"></script>
 
 </body>
 

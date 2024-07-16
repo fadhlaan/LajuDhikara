@@ -249,7 +249,7 @@ if ($obat_masuk_result) {
                                         <td><?php echo htmlspecialchars($row['jumlah_penerimaan']); ?></td>
                                         <td>
                                             <a class="btn btn-warning" href="ubahObatMasuk.php?id_obatmasuk=<?php echo htmlspecialchars($row['id_obatmasuk']); ?>">Edit</a>
-                                            <a class="btn btn-danger" href="hapusObat.php?id_obatmasuk=<?php echo htmlspecialchars($row['id_obatmasuk']); ?>" onclick="konfirmasiHapus(<?php echo $row['id_obatmasuk']; ?>)">Hapus</a>
+                                            <a class="btn btn-danger" href="hapusObatMasuk.php?id_obatmasuk=<?php echo htmlspecialchars($row['id_obatmasuk']); ?>" onclick="konfirmasiHapus(<?php echo $row['id_obatmasuk']; ?>)">Hapus</a>
                                         </td>
                                         </tr>
                                         <?php endforeach; ?>
@@ -323,6 +323,13 @@ if ($obat_masuk_result) {
     <!-- Page level custom scripts -->
     <script src="../js/demo/chart-area-demo.js"></script>
     <script src="../js/demo/chart-pie-demo.js"></script>
+    <script>
+        function konfirmasiHapus(id_obatmasuk) {
+            if (confirm('Yakin Ingin Menghapus Data?')) {
+                window.location.href = 'hapusObatMasuk.php?id_obatmasuk=' + id_obatmasuk;
+            }
+        }
+    </script>
 
 </body>
 

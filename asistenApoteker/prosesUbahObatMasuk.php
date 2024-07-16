@@ -2,10 +2,10 @@
 require '../config.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Ambil data dari form
+    $id_obatmasuk = $_POST['id_obatmasuk'];
     $id_periode_bulan = $_POST['bulan'];
     $id_periode_tahun = $_POST['tahun'];
-    $id_obat = $_POST['nama_obat']; // Menggunakan nama_obat untuk mendapatkan id_obat
+    $id_obat = $_POST['nama_obat'];
     $jumlah_penerimaan = $_POST['jumlah_penerimaan'];
 
     // Query untuk mendapatkan bulan dan tahun dari tabel periode berdasarkan id_periode
@@ -20,13 +20,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $bulan = $rowPeriodeBulan['bulan'];
         $tahun = $rowPeriodeTahun['tahun'];
 
-        // Masukkan data ke tabel obat_masuk
-        $queryInsert = "INSERT INTO obat_masuk (id_periode, bulan, tahun, id_obat, jumlah_penerimaan) VALUES ('$id_periode_bulan', '$bulan', '$tahun', '$id_obat', '$jumlah_penerimaan')";
+        $queryUpdate = "UPDATE obat_masuk SET id_periode='$id_periode_bulan', bulan='$bulan', tahun='$tahun', id_obat='$id_obat', jumlah_penerimaan='$jumlah_penerimaan' WHERE id_obatmasuk='$id_obatmasuk'";
 
-        if (mysqli_query($conn, $queryInsert)) {
-            echo "<script>alert('Data berhasil ditambahkan.'); window.location.href='obatMasuk.php';</script>";
+        if (mysqli_query($conn, $queryUpdate)) {
+            echo "<script>alert('Data berhasil diubah.'); window.location.href='obatMasuk.php';</script>";
         } else {
-            echo "Error: " . $queryInsert . "<br>" . mysqli_error($conn);
+            echo "Error: " . $queryUpdate . "<br>" . mysqli_error($conn);
         }
     } else {
         echo "Error: " . $queryPeriodeBulan . " / " . $queryPeriodeTahun . "<br>" . mysqli_error($conn);

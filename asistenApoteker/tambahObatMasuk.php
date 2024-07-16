@@ -228,10 +228,10 @@
                                 <h6 class="m-0 font-weight-bold text-primary">Tambah Data Obat Masuk</h6>
                             </div>
                             <div class="card-body">
-                            <form>
+                            <form method="post" action="prosesTambahObatMasuk.php">
                                 <div class="form-group">
                                     <label for="bulan">Pilih Bulan</label>
-                                    <select class="form-control" id="periode" name="bulan">
+                                    <select class="form-control" id="bulan" name="bulan">
                                         <option>Bulan</option>
                                         <?php
                                         while ($rowPeriodeBulan = mysqli_fetch_assoc($resPeriodeBulan)) {
@@ -242,7 +242,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="tahun">Pilih Tahun</label>
-                                    <select class="form-control" id="periode" name="tahun">
+                                    <select class="form-control" id="tahun" name="tahun">
                                         <option>Tahun</option>
                                         <?php
                                         while ($rowPeriodeTahun = mysqli_fetch_assoc($resPeriodeTahun)) {

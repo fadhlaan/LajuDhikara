@@ -228,77 +228,36 @@
                                 <h6 class="m-0 font-weight-bold text-primary">Tambah Data Penjualan</h6>
                             </div>
                             <div class="card-body">
-                            <form>
+                            <form method="POST" action="prosesTambahPenjualan.php">
                                 <div class="form-group">
-                                    <label for="bulan">Pilih Bulan</label>
-                                    <select class="form-control" id="periode" name="bulan">
-                                        <option>Bulan</option>
-                                        <?php
-                                        while ($rowPeriodeBulan = mysqli_fetch_assoc($resPeriodeBulan)) {
-                                            echo "<option value='" . $rowPeriodeBulan['id_periode'] . "'>" . $rowPeriodeBulan['bulan'] . "</option>";
-                                        }
-                                        ?>
+                                    <label for="bulan">Bulan:</label>
+                                    <select class="form-control" id="bulan" name="bulan" required>
+                                        <?php while ($rowBulan = mysqli_fetch_assoc($resPeriodeBulan)) : ?>
+                                            <option value="<?= $rowBulan['id_periode']; ?>"><?= $rowBulan['bulan']; ?></option>
+                                        <?php endwhile; ?>
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="tahun">Pilih Tahun</label>
-                                    <select class="form-control" id="periode" name="tahun">
-                                        <option>Tahun</option>
-                                        <?php
-                                        while ($rowPeriodeTahun = mysqli_fetch_assoc($resPeriodeTahun)) {
-                                            echo "<option value='" . $rowPeriodeTahun['id_periode'] . "'>" . $rowPeriodeTahun['tahun'] . "</option>";
-                                        }
-                                        ?>
-                                    </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="obat">Obat</label>
-                                        <select class="form-control" id="obat" name="obat">
-                                            <option>Pilih Obat</option>
-                                            <?php
-                                            while ($rowObat = mysqli_fetch_assoc($resObat)) {
-                                                echo "<option value='" . $rowObat['id_obat'] . "'>" . $rowObat['nama_obat'] . "</option>";
-                                            }
-                                            ?>
-                                        </select>
-                                    </div>
-                                <div class="form-group">
-                                    <label for="jenisObat">Jenis</label>
-                                    <select class="form-control" id="jenisObat" name="jenisObat">
-                                        <option>Pilih Jenis</option>
-                                        <?php
-                                        while ($rowJenis = mysqli_fetch_assoc($resJenis)) {
-                                            echo "<option value='" . $rowJenis['id_jenis'] . "'>" . $rowJenis['nama_jenis'] . "</option>";
-                                        }
-                                        ?>
+                                    <label for="tahun">Tahun:</label>
+                                    <select class="form-control" id="tahun" name="tahun" required>
+                                        <?php while ($rowTahun = mysqli_fetch_assoc($resPeriodeTahun)) : ?>
+                                            <option value="<?= $rowTahun['id_periode']; ?>"><?= $rowTahun['tahun']; ?></option>
+                                        <?php endwhile; ?>
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="satuanObat">Satuan</label>
-                                    <select class="form-control" id="satuanObat" name="satuanObat">
-                                        <option>Pilih Satuan</option>
-                                        <?php
-                                        while ($rowSatuan = mysqli_fetch_assoc($resSatuan)) {
-
-                                            echo "<option value='" . $rowSatuan['id_satuan'] . "'>" . $rowSatuan['nama_satuan'] . "</option>";
-                                        }
-
-                                        ?>
+                                    <label for="nama_obat">Nama Obat:</label>
+                                    <select class="form-control" id="nama_obat" name="nama_obat" required>
+                                        <?php while ($rowObat = mysqli_fetch_assoc($resObat)) : ?>
+                                            <option value="<?= $rowObat['id_obat']; ?>"><?= $rowObat['nama_obat']; ?></option>
+                                        <?php endwhile; ?>
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="supplierObat">Supplier</label>
-                                    <select class="form-control" id="supplierObat" name="supplierObat">
-                                        <option>Pilih Supplier</option>
-                                        <?php
-                                        while ($rowSupplier = mysqli_fetch_assoc($resSupplier)) {
-                                            echo "<option value='" . $rowSupplier['id_supplier'] . "'>" . $rowSupplier['nama_supplier'] . "</option>";
-                                        }
-                                        ?>
-                                    </select>
+                                    <label for="jumlah_penjualan">Jumlah Penjualan:</label>
+                                    <input type="number" class="form-control" id="jumlah_penjualan" name="jumlah_penjualan" required>
                                 </div>
-                                <button type="submit" class="btn btn-success">Tambah Data</button>
-                                <a href="obat.php" class="btn btn-secondary">Kembali</a>
+                                <button type="submit" class="btn btn-primary">Submit</button>
                             </form>
                             </div>
                         </div>

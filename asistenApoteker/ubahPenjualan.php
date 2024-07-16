@@ -1,26 +1,21 @@
-<!DOCTYPE html>
 <?php
 require '../config.php';
 
-// Gantikan pemanggilan query() dengan mysqli_query()
-$conn = mysqli_connect("localhost", "root", "", "db_laju");
-$penjualan_result = mysqli_query($conn, "SELECT
-penj.*,
-p.bulan AS bulan,
-p.tahun AS tahun,
-o.nama_obat,
-j.nama_jenis,
-s.nama_satuan
-FROM penjualan penj
-JOIN periode p ON penj.id_periode = p.id_periode
-JOIN obat o ON penj.id_obat = o.id_obat
-JOIN jenis j ON o.id_jenis = j.id_jenis
-JOIN satuan s ON o.id_satuan = s.id_satuan;");
+$id_penjualan = $_GET['id_penjualan'];
 
-// Periksa apakah kueri berhasil sebelum melanjutkan
-if ($penjualan_result) {
-    $penjualan = mysqli_fetch_all($penjualan_result, MYSQLI_ASSOC);
-}
+$query = "SELECT * FROM penjualan WHERE id_penjualan = $id_penjualan";
+$result = mysqli_query($conn, $query);
+$row = mysqli_fetch_assoc($result);
+
+// Query untuk mendapatkan daftar periode, obat, dan supplier
+$queryPeriodeBulan = "SELECT id_periode, bulan FROM periode ORDER BY bulan";
+$resPeriodeBulan = mysqli_query($conn, $queryPeriodeBulan);
+
+$queryPeriodeTahun = "SELECT id_periode, tahun FROM periode ORDER BY tahun";
+$resPeriodeTahun = mysqli_query($conn, $queryPeriodeTahun);
+
+$queryObat = "SELECT id_obat, nama_obat FROM obat ORDER BY nama_obat";
+$resObat = mysqli_query($conn, $queryObat);
 ?>
 <html lang="en">
 
@@ -32,12 +27,11 @@ if ($penjualan_result) {
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Penjualan</title>
+    <title>Ubah Obat</title>
 
     <!-- Custom fonts for this template-->
     <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
@@ -77,7 +71,7 @@ if ($penjualan_result) {
 
 
             <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
+            <li class="nav-item active">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
                     aria-expanded="true" aria-controls="collapsePages">
                     <i class="fas fa-fw fa-folder"></i>
@@ -103,7 +97,7 @@ if ($penjualan_result) {
 
             
             <!-- Nav Item - Tables -->
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link" href="penjualan.php">
                     <i class="fas fa-fw fa-money-bill-wave"></i>
                     <span>Penjualan</span></a>
@@ -200,58 +194,48 @@ if ($penjualan_result) {
                         <!-- DataTales Example -->
                         <div class="card shadow mb-4">
                             <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary">Data Penjualan</h6>
-                            </div>
-                            <div class="d-flex justify-content-between mb-3 mt-3 mx-3">
-                            <a href="tambahPenjualan.php" class="btn btn-success">Tambah Data</a>
-                                <form class="form-inline">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control bg-light border-0 small"
-                                            placeholder="Search for..." aria-label="Search"
-                                            aria-describedby="basic-addon2">
-                                        <div class="input-group-append">
-                                            <button class="btn btn-primary" type="button">
-                                                <i class="fas fa-search fa-sm"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </form>
+                                <h6 class="m-0 font-weight-bold text-primary">Edit Data Obat</h6>
                             </div>
                             <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                        <thead>
-                                            <tr>
-                                                <th>No</th>
-                                                <th>Bulan</th>
-                                                <th>Tahun</th>
-                                                <th>Obat</th>
-                                                <th>Jenis</th>
-                                                <th>Satuan</th>
-                                                <th>Jumlah Penjualan</th>
-                                                <th>Aksi</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        <?php $i = 1; ?>
-                                        <?php foreach ($penjualan as $row) : ?>
-                                        <tr>
-                                        <td><?php echo htmlspecialchars($i++); ?></td>
-                                        <td><?php echo htmlspecialchars($row['bulan']); ?></td>
-                                        <td><?php echo htmlspecialchars($row['tahun']); ?></td>
-                                        <td><?php echo htmlspecialchars($row['nama_obat']); ?></td>
-                                        <td><?php echo htmlspecialchars($row['nama_jenis']); ?></td>
-                                        <td><?php echo htmlspecialchars($row['nama_satuan']); ?></td>
-                                        <td><?php echo htmlspecialchars($row['jumlah_penjualan']); ?></td>
-                                        <td>
-                                            <a class="btn btn-warning" href="ubahPenjualan.php?id_penjualan=<?php echo htmlspecialchars($row['id_penjualan']); ?>">Edit</a>
-                                            <a class="btn btn-danger" href="hapusPenjualan.php?id_penjualan=<?php echo htmlspecialchars($row['id_penjualan']); ?>" onclick="konfirmasiHapus(<?php echo $row['id_penjualan']; ?>)">Hapus</a>
-                                        </td>
-                                        </tr>
-                                        <?php endforeach; ?>
-                                        </tbody>
-                                    </table>
+                            <form method="POST" action="prosesUbahPenjualan.php">
+                                <input type="hidden" name="id_penjualan" value="<?= $row['id_penjualan']; ?>">
+                                <div class="form-group">
+                                    <label for="bulan">Bulan:</label>
+                                    <select class="form-control" id="bulan" name="bulan" required>
+                                        <?php while ($rowBulan = mysqli_fetch_assoc($resPeriodeBulan)) : ?>
+                                            <option value="<?= $rowBulan['id_periode']; ?>" <?= $row['id_periode'] == $rowBulan['id_periode'] ? 'selected' : ''; ?>>
+                                                <?= $rowBulan['bulan']; ?>
+                                            </option>
+                                        <?php endwhile; ?>
+                                    </select>
                                 </div>
+                                <div class="form-group">
+                                    <label for="tahun">Tahun:</label>
+                                    <select class="form-control" id="tahun" name="tahun" required>
+                                        <?php while ($rowTahun = mysqli_fetch_assoc($resPeriodeTahun)) : ?>
+                                            <option value="<?= $rowTahun['id_periode']; ?>" <?= $row['id_periode'] == $rowTahun['id_periode'] ? 'selected' : ''; ?>>
+                                                <?= $rowTahun['tahun']; ?>
+                                            </option>
+                                        <?php endwhile; ?>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="nama_obat">Nama Obat:</label>
+                                    <select class="form-control" id="nama_obat" name="nama_obat" required>
+                                        <?php while ($rowObat = mysqli_fetch_assoc($resObat)) : ?>
+                                            <option value="<?= $rowObat['id_obat']; ?>" <?= $row['id_obat'] == $rowObat['id_obat'] ? 'selected' : ''; ?>>
+                                                <?= $rowObat['nama_obat']; ?>
+                                            </option>
+                                        <?php endwhile; ?>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="jumlah_penjualan">Jumlah Penjualan:</label>
+                                    <input type="number" class="form-control" id="jumlah_penjualan" name="jumlah_penjualan" value="<?= $row['jumlah_penjualan']; ?>" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Ubah Data</button>
+                                <a href="penjualan.php" class="btn btn-secondary">Kembali</a>
+                            </form>
                             </div>
                         </div>
     
@@ -319,14 +303,6 @@ if ($penjualan_result) {
     <!-- Page level custom scripts -->
     <script src="../js/demo/chart-area-demo.js"></script>
     <script src="../js/demo/chart-pie-demo.js"></script>
-    <script>
-        function konfirmasiHapus(id_penjualan) {
-            if (confirm('Yakin Ingin Menghapus Data?')) {
-                window.location.href = 'hapusObatMasuk.php?id_penjualan=' + id_penjualan;
-            }
-        }
-    </script>
-
 
 </body>
 

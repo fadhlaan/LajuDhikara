@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Pembelian</title>
+    <title>Dashboard</title>
 
     <!-- Custom fonts for this template-->
     <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -31,7 +31,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
                 <div class="sidebar-brand-icon icon-size">
                     <img src="../img/Logo.png" alt="Logo" style="width: 50px; height: 50px;">
                 </div>
@@ -42,9 +42,9 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Beranda -->
-            <li class="nav-item">
-                <a class="nav-link" href="index.html">
-                    <i class="fas fa-fw fa-dolly-flatbed"></i>
+            <li class="nav-item active">
+                <a class="nav-link" href="index.php">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Beranda</span></a>
             </li>
 
@@ -52,26 +52,24 @@
             <!-- Divider -->
             <hr class="sidebar-divider">
 
-
-                        <!-- Nav Item - Tables -->
+            <!-- Nav Item - Tables -->
             <li class="nav-item">
-                <a class="nav-link" href="obatMasuk.html">
+                <a class="nav-link" href="obatMasuk.php">
                     <i class="fas fa-fw fa-dolly-flatbed"></i>
                     <span>Obat Masuk</span></a>
             </li>
 
-            
             <!-- Nav Item - Tables -->
             <li class="nav-item">
-                <a class="nav-link" href="penjualan.html">
+                <a class="nav-link" href="penjualan.php">
                     <i class="fas fa-fw fa-money-bill-wave"></i>
                     <span>Penjualan</span></a>
             </li>
             
-            
-            <!-- Nav Item - Pembelian -->
-            <li class="nav-item active">
-                <a class="nav-link" href="pembelian.html">
+          
+            <!-- Nav Item - Charts -->
+            <li class="nav-item">
+                <a class="nav-link" href="pembelian.php">
                     <i class="fas fa-fw fa-shopping-cart"></i>
                     <span>Pembelian</span></a>
             </li>
@@ -156,47 +154,53 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
+                    <!-- Page Heading -->
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">Beranda</h1>
+                    </div>
+
+                    <!-- Content Row -->
+                    <div class="row">
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <a href="obatMasuk.php" class="btn btn-primary shadow h-100 py-2 w-100 d-flex flex-column align-items-center justify-content-center">
+                                <div class="icon mb-2">
+                                    <i class="fas fa-dolly-flatbed fa-2x text-white"></i>
+                                </div>
+                                <div class="text-center">
+                                    <div class="h5 mb-0 font-weight-bold text-white">Obat Masuk</div>
+                                </div>
+                            </a>
+                        </div><div class="col-xl-3 col-md-6 mb-4">
+                            <a href="penjualan.php" class="btn btn-primary shadow h-100 py-2 w-100 d-flex flex-column align-items-center justify-content-center">
+                                <div class="icon mb-2">
+                                    <i class="fas fa-fw fa-money-bill-wave fa-2x text-white"></i>
+                                </div>
+                                <div class="text-center">
+                                    <div class="h5 mb-0 font-weight-bold text-white">Penjualan</div>
+                                </div>
+                            </a>
+                        </div>
+                       
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <a href="pembelian.php" class="btn btn-primary shadow h-100 py-2 w-100 d-flex flex-column align-items-center justify-content-center">
+                                <div class="icon mb-2">
+                                    <i class="fas fa-shopping-cart fa-2x text-white"></i>
+                                </div>
+                                <div class="text-center">
+                                    <div class="h5 mb-0 font-weight-bold text-white">Pembelian</div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    
                     <div class="container-fluid">
                         <!-- DataTales Example -->
                         <div class="card shadow mb-4">
-                            <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary">Data Pembelian</h6>
-                            </div>
-                            <div class="d-flex justify-content-between mb-3 mt-3 mx-3">
-                                <form class="form-inline">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control bg-light border-0 small"
-                                            placeholder="Search for..." aria-label="Search"
-                                            aria-describedby="basic-addon2">
-                                        <div class="input-group-append">
-                                            <button class="btn btn-primary" type="button">
-                                                <i class="fas fa-search fa-sm"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                        <thead>
-                                            <tr>
-                                                <th>No</th>
-                                                <th>Bulan</th>
-                                                <th>Tahun</th>
-                                                <th>Obat</th>
-                                                <th>Jenis</th>
-                                                <th>Satuan</th>
-                                                <th>Jumlah Pembelian</th>
-                                                <th>Supplier</th>
-                                                <th>Status</th>
                             
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            
-                                        </tbody>
-                                    </table>
+                            <div class="card-body">
+                                <div class="text-center">
+                                    <h1 class="h4 mb-4 text-gray-800">Selamat Datang Direktur Utama</h1>
+                                    <img src="../img/logo.png" alt="Logo PT. Laju Dhikara Abadi" style="width: 25%; height: auto;">
                                 </div>
                             </div>
                         </div>
@@ -243,7 +247,7 @@
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="../login.html">Logout</a>
+                    <a class="btn btn-primary" href="../login.php">Logout</a>
                 </div>
             </div>
         </div>

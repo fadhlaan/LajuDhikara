@@ -1,5 +1,31 @@
 <!DOCTYPE html>
+<?php
+require '../config.php';
+
+// Gantikan pemanggilan query() dengan mysqli_query()
+$conn = mysqli_connect("localhost", "root", "", "db_laju");
+$obat_masuk_result = mysqli_query($conn, "SELECT
+om.*,
+p.bulan AS bulan,
+p.tahun AS tahun,
+o.nama_obat,
+j.nama_jenis,
+s.nama_satuan,
+sp.nama_supplier
+FROM obat_masuk om
+JOIN periode p ON om.id_periode = p.id_periode
+JOIN obat o ON om.id_obat = o.id_obat
+JOIN jenis j ON o.id_jenis = j.id_jenis
+JOIN supplier sp ON o.id_supplier = sp.id_supplier
+JOIN satuan s ON o.id_satuan = s.id_satuan;");
+
+// Periksa apakah kueri berhasil sebelum melanjutkan
+if ($obat_masuk_result) {
+    $obat_masuk = mysqli_fetch_all($obat_masuk_result, MYSQLI_ASSOC);
+}
+?>
 <html lang="en">
+
 
 <head>
 
@@ -9,7 +35,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Penjualan</title>
+    <title>Obat Masuk</title>
 
     <!-- Custom fonts for this template-->
     <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -31,7 +57,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
                 <div class="sidebar-brand-icon icon-size">
                     <img src="../img/Logo.png" alt="Logo" style="width: 50px; height: 50px;">
                 </div>
@@ -43,7 +69,7 @@
 
             <!-- Nav Item - Beranda -->
             <li class="nav-item">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="index.php">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Beranda</span></a>
             </li>
@@ -51,25 +77,27 @@
 
             <!-- Divider -->
             <hr class="sidebar-divider">
-
             
             <!-- Nav Item - Tables -->
-            <li class="nav-item">
-                <a class="nav-link" href="obatMasuk.html">
+            <li class="nav-item active">
+                <a class="nav-link" href="obatMasuk.php">
                     <i class="fas fa-fw fa-dolly-flatbed"></i>
                     <span>Obat Masuk</span></a>
             </li>
 
             
             <!-- Nav Item - Tables -->
-            <li class="nav-item active">
-                <a class="nav-link" href="penjualan.html">
+            <li class="nav-item">
+                <a class="nav-link" href="penjualan.php">
                     <i class="fas fa-fw fa-money-bill-wave"></i>
                     <span>Penjualan</span></a>
             </li>
-          
+    
+            
+            
+            <!-- Nav Item - Charts -->
             <li class="nav-item">
-                <a class="nav-link" href="pembelian.html">
+                <a class="nav-link" href="pembelian.php">
                     <i class="fas fa-fw fa-shopping-cart"></i>
                     <span>Pembelian</span></a>
             </li>
@@ -158,7 +186,7 @@
                         <!-- DataTales Example -->
                         <div class="card shadow mb-4">
                             <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary">Data Penjualan</h6>
+                                <h6 class="m-0 font-weight-bold text-primary">Data Obat Masuk</h6>
                             </div>
                             <div class="d-flex justify-content-between mb-3 mt-3 mx-3">
                                 <form class="form-inline">
@@ -185,12 +213,24 @@
                                                 <th>Obat</th>
                                                 <th>Jenis</th>
                                                 <th>Satuan</th>
-                                                <th>Jumlah Penjualan</th>
+                                                <th>Jumlah Penerimaan</th>
                                         
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            
+                                        <?php $i = 1; ?>
+                                        <?php foreach ($obat_masuk as $row) : ?>
+                                        <tr>
+                                        <td><?php echo htmlspecialchars($i++); ?></td>
+                                        <td><?php echo htmlspecialchars($row['bulan']); ?></td>
+                                        <td><?php echo htmlspecialchars($row['tahun']); ?></td>
+                                        <td><?php echo htmlspecialchars($row['nama_obat']); ?></td>
+                                        <td><?php echo htmlspecialchars($row['nama_jenis']); ?></td>
+                                        <td><?php echo htmlspecialchars($row['nama_satuan']); ?></td>
+                                        <td><?php echo htmlspecialchars($row['nama_supplier']); ?></td>
+                                        <tr><?php echo htmlspecialchars($row['jumlah_penerimaan']); ?></td                                     
+                                        <?php endforeach; ?>
+                                        </tr>
                                         </tbody>
                                     </table>
                                 </div>
@@ -239,7 +279,7 @@
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="../login.html">Logout</a>
+                    <a class="btn btn-primary" href="../login.php">Logout</a>
                 </div>
             </div>
         </div>

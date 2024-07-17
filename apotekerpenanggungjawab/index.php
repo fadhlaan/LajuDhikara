@@ -31,7 +31,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
                 <div class="sidebar-brand-icon icon-size">
                     <img src="../img/Logo.png" alt="Logo" style="width: 50px; height: 50px;">
                 </div>
@@ -43,7 +43,7 @@
 
             <!-- Nav Item - Beranda -->
             <li class="nav-item active">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="index.php">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Beranda</span></a>
             </li>
@@ -54,14 +54,14 @@
 
             <!-- Nav Item - Tables -->
             <li class="nav-item">
-                <a class="nav-link" href="obatMasuk.html">
+                <a class="nav-link" href="obatMasuk.php">
                     <i class="fas fa-fw fa-dolly-flatbed"></i>
                     <span>Obat Masuk</span></a>
             </li>
 
             <!-- Nav Item - Tables -->
             <li class="nav-item">
-                <a class="nav-link" href="penjualan.html">
+                <a class="nav-link" href="penjualan.php">
                     <i class="fas fa-fw fa-money-bill-wave"></i>
                     <span>Penjualan</span></a>
             </li>
@@ -75,14 +75,14 @@
                 </a>
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="stok.html"><i class="fas fa-pills"></i>Pengecekan Stok</a>
-                        <a class="collapse-item" href="perencanaan.html"><i class="fas fa-truck"></i> Perencanaan</a>
+                        <a class="collapse-item" href="stok.php"><i class="fas fa-pills"></i>Pengecekan Stok</a>
+                        <a class="collapse-item" href="perencanaan.php"><i class="fas fa-truck"></i> Perencanaan</a>
                     </div>
                 </div>
             </li>
             <!-- Nav Item - Charts -->
             <li class="nav-item">
-                <a class="nav-link" href="pembelian.html">
+                <a class="nav-link" href="pembelian.php">
                     <i class="fas fa-fw fa-shopping-cart"></i>
                     <span>Pembelian</span></a>
             </li>
@@ -175,7 +175,7 @@
                     <!-- Content Row -->
                     <div class="row">
                         <div class="col-xl-3 col-md-6 mb-4">
-                            <a href="obatMasuk.html" class="btn btn-primary shadow h-100 py-2 w-100 d-flex flex-column align-items-center justify-content-center">
+                            <a href="obatMasuk.php" class="btn btn-primary shadow h-100 py-2 w-100 d-flex flex-column align-items-center justify-content-center">
                                 <div class="icon mb-2">
                                     <i class="fas fa-dolly-flatbed fa-2x text-white"></i>
                                 </div>
@@ -184,7 +184,7 @@
                                 </div>
                             </a>
                         </div><div class="col-xl-3 col-md-6 mb-4">
-                            <a href="penjualan.html" class="btn btn-primary shadow h-100 py-2 w-100 d-flex flex-column align-items-center justify-content-center">
+                            <a href="penjualan.php" class="btn btn-primary shadow h-100 py-2 w-100 d-flex flex-column align-items-center justify-content-center">
                                 <div class="icon mb-2">
                                     <i class="fas fa-money-bill-wave fa-2x text-white"></i>
                                 </div>
@@ -194,7 +194,7 @@
                             </a>
                         </div>
                         <div class="col-xl-3 col-md-6 mb-4">
-                            <a href="stok.html" class="btn btn-primary shadow h-100 py-2 w-100 d-flex flex-column align-items-center justify-content-center">
+                            <a href="stok.php" class="btn btn-primary shadow h-100 py-2 w-100 d-flex flex-column align-items-center justify-content-center">
                                 <div class="icon mb-2">
                                     <i class="fas fa-fw fa-folder"></i>
                                 </div>
@@ -204,7 +204,7 @@
                             </a>
                         </div>
                         <div class="col-xl-3 col-md-6 mb-4">
-                            <a href="pembelian.html" class="btn btn-primary shadow h-100 py-2 w-100 d-flex flex-column align-items-center justify-content-center">
+                            <a href="pembelian.php" class="btn btn-primary shadow h-100 py-2 w-100 d-flex flex-column align-items-center justify-content-center">
                                 <div class="icon mb-2">
                                     <i class="fas fa-shopping-cart fa-2x text-white"></i>
                                 </div>
@@ -269,7 +269,7 @@
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="../login.html">Logout</a>
+                    <a class="btn btn-primary" href="../login.php">Logout</a>
                 </div>
             </div>
         </div>

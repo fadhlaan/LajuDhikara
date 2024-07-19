@@ -228,9 +228,9 @@ if ($obat_masuk_result) {
                                         <td><?php echo htmlspecialchars($row['nama_jenis']); ?></td>
                                         <td><?php echo htmlspecialchars($row['nama_satuan']); ?></td>
                                         <td><?php echo htmlspecialchars($row['nama_supplier']); ?></td>
-                                        <tr><?php echo htmlspecialchars($row['jumlah_penerimaan']); ?></td                                     
+                                        <td><?php echo htmlspecialchars($row['jumlah_penerimaan']); ?></td                               
+                                        </td>
                                         <?php endforeach; ?>
-                                        </tr>
                                         </tbody>
                                     </table>
                                 </div>

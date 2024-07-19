@@ -234,16 +234,17 @@ if ($obat_masuk_result) {
                                         <?php $i = 1; ?>
                                         <?php foreach ($obat_masuk as $row) : ?>
                                         <tr>
-                                        <td><?php echo htmlspecialchars($i++); ?></td>
-                                        <td><?php echo htmlspecialchars($row['bulan']); ?></td>
-                                        <td><?php echo htmlspecialchars($row['tahun']); ?></td>
-                                        <td><?php echo htmlspecialchars($row['nama_obat']); ?></td>
-                                        <td><?php echo htmlspecialchars($row['nama_jenis']); ?></td>
-                                        <td><?php echo htmlspecialchars($row['nama_satuan']); ?></td>
-                                        <td><?php echo htmlspecialchars($row['nama_supplier']); ?></td>
-                                        <tr><?php echo htmlspecialchars($row['jumlah_penerimaan']); ?></td                                     
+                                            <td><?php echo htmlspecialchars($i++); ?></td>
+                                            <td><?php echo htmlspecialchars($row['bulan']); ?></td>
+                                            <td><?php echo htmlspecialchars($row['tahun']); ?></td>
+                                            <td><?php echo htmlspecialchars($row['nama_obat']); ?></td>
+                                            <td><?php echo htmlspecialchars($row['nama_jenis']); ?></td>
+                                            <td><?php echo htmlspecialchars($row['nama_satuan']); ?></td>
+                                            <td><?php echo htmlspecialchars($row['nama_supplier']); ?></td>
+                                            <td><?php echo htmlspecialchars($row['jumlah_penerimaan']); ?></td>
+                                        </tr> <!-- Perbaikan penutupan tag <tr> -->
                                         <?php endforeach; ?>
-                                        </tr>
+                                        </tbody>
                                         </tbody>
                                     </table>
                                 </div>

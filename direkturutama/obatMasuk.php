@@ -213,6 +213,7 @@ if ($obat_masuk_result) {
                                                 <th>Obat</th>
                                                 <th>Jenis</th>
                                                 <th>Satuan</th>
+                                                <th>Direktur Utama</th>
                                                 <th>Jumlah Penerimaan</th>
                                         
                                             </tr>

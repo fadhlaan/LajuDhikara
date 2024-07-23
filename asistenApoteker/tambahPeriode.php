@@ -1,17 +1,6 @@
 <!DOCTYPE html>
 <?php
-require '../config.php';
-
-// Gantikan pemanggilan query() dengan mysqli_query()
-$conn = mysqli_connect("localhost", "root", "", "db_laju");
-$periode_result = mysqli_query($conn, "SELECT * FROM periode");
-
-// Periksa apakah kueri berhasil sebelum melanjutkan
-if ($periode_result) {
-    $periode = mysqli_fetch_all($periode_result, MYSQLI_ASSOC);
-} else {
-    echo "Gagal mengambil data satuan. Silakan coba lagi.";
-}
+    require'../config.php';
 ?>
 <html lang="en">
 
@@ -23,7 +12,7 @@ if ($periode_result) {
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Periode</title>
+    <title>Tambah Jenis Obat</title>
 
     <!-- Custom fonts for this template-->
     <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -191,51 +180,21 @@ if ($periode_result) {
                         <!-- DataTales Example -->
                         <div class="card shadow mb-4">
                             <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary">Data Periode</h6>
-                            </div>
-                            <div class="d-flex justify-content-between mb-3 mt-3 mx-3">
-                                <a href="tambahPeriode.php" class="btn btn-success" type="button">Tambah Data</a>
-                                <form class="form-inline">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control bg-light border-0 small"
-                                            placeholder="Search for..." aria-label="Search"
-                                            aria-describedby="basic-addon2">
-                                        <div class="input-group-append">
-                                            <button class="btn btn-primary" type="button">
-                                                <i class="fas fa-search fa-sm"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </form>
+                                <h6 class="m-0 font-weight-bold text-primary">Tambah Periode</h6>
                             </div>
                             <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                        <thead>
-                                            <tr>
-                                                <th>No</th>
-                                                <th>Bulan</th>
-                                                <th>Tahun</th>
-                                                <th>Aksi</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tbody>
-                                            <?php $i = 1; ?>
-                                        <?php foreach ($periode as $row) : ?>
-                                            <tr>
-                                                <td><?php echo ($i++); ?></td>
-                                                <td><?php echo htmlspecialchars($row['bulan']); ?></td>
-                                                <td><?php echo htmlspecialchars($row['tahun']); ?></td>
-                                                <td>
-                                                    <a class="btn btn-primary" href="ubahPeriode.php?id_periode=<?php echo htmlspecialchars($row['id_periode']); ?>">Edit</a>
-                                                    <a class="btn btn-danger" href="#" onclick="konfirmasiHapus(<?php echo $row['id_periode']; ?>)">Hapus</a>
-                                                </td>
-                                            </tr>
-                                            <?php endforeach; ?>
-                                        </tbody>
-                                    </table>
+                            <form method="post" action="prosesTambahPeriode.php">
+                                <div class="form-group">
+                                    <label for="bulan">Bulan</label>
+                                    <input type="text" class="form-control" name="bulan" id="bulan" placeholder="Masukkan Bulan">
                                 </div>
+                                <div class="form-group">
+                                    <label for="tahun">Tahun</label>
+                                    <input type="text" class="form-control" name="tahun" id="tahun" placeholder="Masukkan Tahun">
+                                </div>
+                                <button type="submit" name="submit" class="btn btn-success">Tambah Data</button>
+                                <a href="periode.php" class="btn btn-secondary">Kembali</a>
+                            </form>
                             </div>
                         </div>
     
@@ -303,13 +262,6 @@ if ($periode_result) {
     <!-- Page level custom scripts -->
     <script src="../js/demo/chart-area-demo.js"></script>
     <script src="../js/demo/chart-pie-demo.js"></script>
-    <script>
-        function konfirmasiHapus(id_periode) {
-            if (confirm('Yakin Ingin Menghapus Data?')) {
-                window.location.href = 'hapusPeriode.php?id_periode=' + id_periode;
-            }
-        }
-    </script>
 
 </body>
 

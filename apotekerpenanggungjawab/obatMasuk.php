@@ -226,6 +226,7 @@ if ($obat_masuk_result) {
                                                 <th>Obat</th>
                                                 <th>Jenis</th>
                                                 <th>Satuan</th>
+                                                <th>Supplier</th>
                                                 <th>Jumlah Penerimaan</th>
                                         
                                             </tr>

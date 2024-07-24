@@ -1,3 +1,7 @@
+<?php
+include '../checkRole.php';
+checkRole(['asisten apoteker']);
+?>
 <!DOCTYPE html>
 <html lang="en">
 

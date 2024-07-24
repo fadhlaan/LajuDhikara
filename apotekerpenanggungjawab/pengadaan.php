@@ -1,3 +1,8 @@
+<?php
+include '../config.php';
+include '../checkRole.php';
+checkRole(['apoteker penanggung jawab']);
+?>
 <!DOCTYPE html>
 <?php
 require '../config.php';

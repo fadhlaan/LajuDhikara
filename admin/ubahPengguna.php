@@ -1,4 +1,7 @@
 <?php
+include '../checkRole.php';
+checkRole(['admin']);
+
 include "../config.php";
 
 // Periksa koneksi

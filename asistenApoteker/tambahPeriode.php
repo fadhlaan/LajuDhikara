@@ -186,11 +186,25 @@
                             <form method="post" action="prosesTambahPeriode.php">
                                 <div class="form-group">
                                     <label for="bulan">Bulan</label>
-                                    <input type="text" class="form-control" name="bulan" id="bulan" placeholder="Masukkan Bulan">
+                                    <select class="form-control" name="bulan" id="bulan" required>
+                                        <option value="Januari-Februari">Januari-Februari</option>
+                                        <option value="Maret-April">Maret-April</option>
+                                        <option value="Mei-Juni">Mei-Juni</option>
+                                        <option value="Juli-Agustus">Juli-Agustus</option>
+                                        <option value="September-Oktober">September-Oktober</option>
+                                        <option value="November-Desember">November-Desember</option>
+                                    </select>
                                 </div>
                                 <div class="form-group">
                                     <label for="tahun">Tahun</label>
-                                    <input type="text" class="form-control" name="tahun" id="tahun" placeholder="Masukkan Tahun">
+                                    <select class="form-control" name="tahun" id="tahun" required>
+                                        <?php
+                                            $currentYear = date("Y");
+                                            for ($i = $currentYear; $i >= $currentYear - 10; $i--) {
+                                                echo "<option value='$i'>$i</option>";
+                                            }
+                                        ?>
+                                    </select>
                                 </div>
                                 <button type="submit" name="submit" class="btn btn-success">Tambah Data</button>
                                 <a href="periode.php" class="btn btn-secondary">Kembali</a>

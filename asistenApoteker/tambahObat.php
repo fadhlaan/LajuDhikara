@@ -210,7 +210,7 @@
                             <form method="post" action="prosesTambahObat.php">
                                 <div class="form-group">
                                     <label for="nama_obat">Nama Obat</label>
-                                    <input type="text" class="form-control" id="nama_obat" name="nama_obat" placeholder="Masukkan Nama Obat">
+                                    <input type="text" class="form-control" id="nama_obat" name="nama_obat" placeholder="Masukkan Nama Obat" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="nama_jenis">Jenis</label>

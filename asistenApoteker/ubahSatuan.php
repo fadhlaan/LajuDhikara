@@ -222,10 +222,10 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="namaSatuan">Nama Satuan</label>
-                                    <input type="text" class="form-control" name="nama_satuan" id="nama_satuan" placeholder="Masukkan Nama Supplier" value="<?php echo htmlspecialchars($row['nama_satuan']); ?>">
+                                    <input type="text" class="form-control" name="nama_satuan" id="nama_satuan" placeholder="Masukkan Nama Supplier" value="<?php echo htmlspecialchars($row['nama_satuan']); ?>" required>
                                 </div>
                                 <input type="submit" class="btn btn-success" name="submit" value="Submit">
-                                <a href="supplier.php" class="btn btn-secondary">Kembali</a>
+                                <a href="satuan.php" class="btn btn-secondary">Kembali</a>
                             </form>
                             </div>
                         </div>

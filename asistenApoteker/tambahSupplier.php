@@ -186,7 +186,7 @@
                             <form method="post" action="prosesTambahSupplier.php">
                                 <div class="form-group">
                                     <label for="namaSupplier">Nama Supplier</label>
-                                    <input type="text" class="form-control" name="nama_supplier" id="nama_supplier" placeholder="Masukkan Nama Supplier">
+                                    <input type="text" class="form-control" name="nama_supplier" id="nama_supplier" placeholder="Masukkan Nama Supplier" required>
                                 </div>
                                 <button type="submit" name="submit" class="btn btn-success">Tambah Data</button>
                                 <a href="supplier.php" class="btn btn-secondary">Kembali</a>

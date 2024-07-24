@@ -33,6 +33,11 @@
     if (!$row) {
         die("Jenis dengan ID tersebut tidak ditemukan. Apakah Anda yakin ID Jenis tersebut ada?");
     }
+
+    // Ambil data bulan dari database
+    $resBulan = $conn->query("SELECT * FROM periode"); // Pastikan tabel bulan ada
+    $selectedBulan = $row['bulan']; // Ambil bulan dari hasil query periode
+    $selectedTahun = $row['tahun']; // Ambil bulan dari hasil query periode
 ?>
 <html lang="en">
 
@@ -222,11 +227,24 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="bulan">Bulan</label>
-                                    <input type="text" class="form-control" name="bulan" id="bulan" placeholder="Masukkan Nama Bulan" value="<?php echo htmlspecialchars($row['bulan']); ?>" required>
+                                    <select class="form-control" name="bulan" id="bulan" required>
+                                        <?php while ($rowBulan = $resBulan->fetch_assoc()) : ?>
+                                            <option value="<?= $rowBulan['id_periode']; ?>" <?= ($rowBulan['bulan'] == $selectedBulan) ? 'selected' : ''; ?>>
+                                                <?= htmlspecialchars($rowBulan['bulan']); ?>
+                                            </option>
+                                        <?php endwhile; ?>
+                                    </select>
                                 </div>
                                 <div class="form-group">
                                     <label for="tahun">Tahun</label>
-                                    <input type="text" class="form-control" name="tahun" id="tahun" placeholder="Masukkan Tahun" value="<?php echo htmlspecialchars($row['tahun']); ?>" required>
+                                    <select class="form-control" name="tahun" id="tahun" required>
+                                        <?php
+                                            $currentYear = date("Y");
+                                            for ($i = $currentYear; $i >= $currentYear - 10; $i--) {
+                                                echo "<option value='" . $i . "' " . ($i == $selectedTahun ? 'selected' : '') . ">" . htmlspecialchars($i) . "</option>";
+                                            }
+                                        ?>  
+                                    </select>
                                 </div>
                                 <input type="submit" class="btn btn-success" name="submit" value="Submit">
                                 <a href="periode.php" class="btn btn-secondary">Kembali</a>

@@ -183,10 +183,10 @@
                                 <h6 class="m-0 font-weight-bold text-primary">Tambah Jenis Data Obat</h6>
                             </div>
                             <div class="card-body">
-                            <form method="post" action="prosesTambahJenis.php">
+                            <form id="form" method="post" action="prosesTambahJenis.php" onsubmit="return validateForm()">
                                 <div class="form-group">
                                     <label for="namaJenis">Nama Jenis Obat</label>
-                                    <input type="text" class="form-control" name="nama_jenis" id="nama_jenis" placeholder="Masukkan Nama Jenis">
+                                    <input type="text" class="form-control" name="nama_jenis" id="nama_jenis" placeholder="Masukkan Nama Jenis" required>
                                 </div>
                                 <button type="submit" name="submit" class="btn btn-success">Tambah Data</button>
                                 <a href="jenis.php" class="btn btn-secondary">Kembali</a>
@@ -258,6 +258,17 @@
     <!-- Page level custom scripts -->
     <script src="../js/demo/chart-area-demo.js"></script>
     <script src="../js/demo/chart-pie-demo.js"></script>
+
+    <script>
+        function validateForm() {
+            var nama_jenis = document.getElementById('nama_jenis').value;
+            if (nama_jenis == "") {
+                alert("Nama jenis obat harus diisi.");
+                return false;
+            }
+            return true;
+        }
+    </script>
 
 </body>
 

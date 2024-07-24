@@ -1,38 +1,26 @@
 <!DOCTYPE html>
 <?php
-    include "../config.php";
+require '../config.php';
 
-    // Periksa koneksi
-    if (!$conn) {
-        die("Koneksi gagal: " . mysqli_connect_error());
-    }
-    
-    // Ambil id_pengguna dari query string
-    $get_id = $_GET['id_supplier'] ?? null;
-    
-    // Periksa apakah id_pengguna ada dalam query string
-    if (!$get_id) {
-        die("ID Supplier tidak ditemukan. Pastikan Anda mengirimkan ID Supplier yang benar.");
-    }
-    
-    // Jalankan query untuk mendapatkan data pengguna dengan menggunakan prepared statement untuk mencegah SQL injection
-    $stmt = $conn->prepare("SELECT * FROM supplier WHERE id_supplier=?");
-    $stmt->bind_param("s", $get_id);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    
-    // Periksa apakah query berhasil
-    if (!$result) {
-        die("Query gagal: " . mysqli_error($conn));
-    }
-    
-    // Ambil hasil query
-    $row = $result->fetch_assoc();
-    
-    // Periksa apakah hasil query kosong
-    if (!$row) {
-        die("Supplier dengan ID tersebut tidak ditemukan. Apakah Anda yakin ID Supllier tersebut ada?");
-    }
+// Gantikan pemanggilan query() dengan mysqli_query()
+$conn = mysqli_connect("localhost", "root", "", "db_laju");
+$penjualan_result = mysqli_query($conn, "SELECT
+penj.*,
+p.bulan AS bulan,
+p.tahun AS tahun,
+o.nama_obat,
+j.nama_jenis,
+s.nama_satuan
+FROM penjualan penj
+JOIN periode p ON penj.id_periode = p.id_periode
+JOIN obat o ON penj.id_obat = o.id_obat
+JOIN jenis j ON o.id_jenis = j.id_jenis
+JOIN satuan s ON o.id_satuan = s.id_satuan;");
+
+// Periksa apakah kueri berhasil sebelum melanjutkan
+if ($penjualan_result) {
+    $penjualan = mysqli_fetch_all($penjualan_result, MYSQLI_ASSOC);
+}
 ?>
 <html lang="en">
 
@@ -44,7 +32,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Ubah Supplier</title>
+    <title>Pengadaan</title>
 
     <!-- Custom fonts for this template-->
     <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -87,24 +75,6 @@
             <!-- Divider -->
             <hr class="sidebar-divider">
 
-
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item active">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-                    aria-expanded="true" aria-controls="collapsePages">
-                    <i class="fas fa-fw fa-folder"></i>
-                    <span>Data Master</span>
-                </a>
-                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="obat.php"><i class="fas fa-pills"></i> Obat</a>
-                        <a class="collapse-item" href="supplier.php"><i class="fas fa-truck"></i> Supplier</a>
-                        <a class="collapse-item" href="jenis.php"><i class="fas fa-share-alt"></i> Jenis</a>
-                        <a class="collapse-item" href="satuan.php"><i class="fas fa-cog"></i> Satuan</a>
-                        <a class="collapse-item" href="periode.php"><i class="fas fa-calendar"></i> Periode</a>
-                    </div>
-                </div>
-            </li>
             
             <!-- Nav Item - Tables -->
             <li class="nav-item">
@@ -120,7 +90,20 @@
                     <i class="fas fa-fw fa-money-bill-wave"></i>
                     <span>Penjualan</span></a>
             </li>
-            
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item active">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
+                    aria-expanded="true" aria-controls="collapsePages">
+                    <i class="fas fa-fw fa-folder"></i>
+                    <span>Pengadaan</span>
+                </a>
+                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="stok.php"><i class="fas fa-pills"></i> Pengecekan Stok</a>
+                        <a class="collapse-item" href="perencanaan.php"><i class="fas fa-truck"></i> Perencanaan</a>
+                    </div>
+                </div>
+            </li>
             <!-- Nav Item - Charts -->
             <li class="nav-item">
                 <a class="nav-link" href="pembelian.php">
@@ -186,7 +169,7 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Asisten Apoteker</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Apoteker Penanggung Jawab</span>
                                 <img class="img-profile rounded-circle"
                                     src="../img/undraw_profile.svg">
                             </a>
@@ -212,21 +195,53 @@
                         <!-- DataTales Example -->
                         <div class="card shadow mb-4">
                             <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary">Ubah Supplier</h6>
+                                <h6 class="m-0 font-weight-bold text-primary">Data Pengadaan</h6>
+                            </div>
+                            <div class="d-flex justify-content-between mb-3 mt-3 mx-3">
+                                  <form class="form-inline">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control bg-light border-0 small"
+                                            placeholder="Search for..." aria-label="Search"
+                                            aria-describedby="basic-addon2">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-primary" type="button">
+                                                <i class="fas fa-search fa-sm"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                             <div class="card-body">
-                            <form method="post" action="prosesUbahSupplier.php">
-                                <div class="form-group">
-                                    <label for="idSupplier">ID Supplier</label>
-                                    <input type="text" class="form-control" name="id_supplier" id="id_supplier" placeholder="" value="<?php echo htmlspecialchars($row['id_supplier']); ?>" readonly>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                                <th>No</th>
+                                                <th>Bulan</th>
+                                                <th>Tahun</th>
+                                                <th>Obat</th>
+                                                <th>Jenis</th>
+                                                <th>Satuan</th>
+                                                <th>Jumlah Penjualan</th>
+        
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        <?php $i = 1; ?>
+                                        <?php foreach ($penjualan as $row) : ?>
+                                        <tr>
+                                        <td><?php echo htmlspecialchars($i++); ?></td>
+                                        <td><?php echo htmlspecialchars($row['bulan']); ?></td>
+                                        <td><?php echo htmlspecialchars($row['tahun']); ?></td>
+                                        <td><?php echo htmlspecialchars($row['nama_obat']); ?></td>
+                                        <td><?php echo htmlspecialchars($row['nama_jenis']); ?></td>
+                                        <td><?php echo htmlspecialchars($row['nama_satuan']); ?></td>
+                                        <td><?php echo htmlspecialchars($row['jumlah_penjualan']); ?></td>
+                                        </tr>
+                                        <?php endforeach; ?>     
+                                        </tbody>
+                                    </table>
                                 </div>
-                                <div class="form-group">
-                                    <label for="namaSupplier">Nama Supplier</label>
-                                    <input type="text" class="form-control" name="nama_supplier" id="nama_supplier" placeholder="Masukkan Nama Supplier" value="<?php echo htmlspecialchars($row['nama_supplier']); ?>" required>
-                                </div>
-                                <input type="submit" class="btn btn-success" name="submit" value="Submit">
-                                <a href="supplier.php" class="btn btn-secondary">Kembali</a>
-                            </form>
                             </div>
                         </div>
     

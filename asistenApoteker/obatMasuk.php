@@ -29,7 +29,6 @@ if ($obat_masuk_result) {
 }
 ?>
 <html lang="en">
-//tes pindah branch
 <head>
 
     <meta charset="utf-8">

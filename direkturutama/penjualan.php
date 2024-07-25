@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <?php
 require '../config.php';
+include '../checkRole.php';
+checkRole(['direktur utama']);
 
 // Gantikan pemanggilan query() dengan mysqli_query()
 $conn = mysqli_connect("localhost", "root", "", "db_laju");

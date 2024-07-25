@@ -225,10 +225,10 @@
                         <!-- DataTales Example -->
                         <div class="card shadow mb-4">
                             <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary">Tambah Data Penjualan</h6>
+                                <h6 class="m-0 font-weight-bold text-primary">Tambah Data Obat Keluar</h6>
                             </div>
                             <div class="card-body">
-                            <form method="POST" action="prosesTambahPenjualan.php">
+                            <form method="POST" action="prosesTambahObatKeluar.php">
                                 <div class="form-group">
                                     <label for="bulan">Bulan:</label>
                                     <select class="form-control" id="bulan" name="bulan" required>
@@ -256,6 +256,10 @@
                                 <div class="form-group">
                                     <label for="jumlah_penjualan">Jumlah Penjualan:</label>
                                     <input type="number" class="form-control" id="jumlah_penjualan" name="jumlah_penjualan" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="jumlah_kadaluarsa">Jumlah Kadaluarsa:</label>
+                                    <input type="number" class="form-control" id="jumlah_kadaluarsa" name="jumlah_kadaluarsa" required>
                                 </div>
                                 <button type="submit" class="btn btn-primary">Submit</button>
                             </form>

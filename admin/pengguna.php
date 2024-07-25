@@ -1,3 +1,7 @@
+<?php
+include '../checkRole.php';
+checkRole(['admin']);
+?>
 <!DOCTYPE html>
 <?php
 require '../config.php';

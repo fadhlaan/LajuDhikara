@@ -256,8 +256,8 @@ if (!$resSupplier) {
                         </div>
                         <div class="form-group">
                             <label for="jumlah_penerimaan">Jumlah Penerimaan:</label>
-                            <input type="number" class="form-control" id="jumlah_penerimaan" name="jumlah_penerimaan" required>
-                        </div>
+                            <input type="number" class="form-control" id="jumlah_penerimaan" name="jumlah_penerimaan" required >
+                        </div>  
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
 

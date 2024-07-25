@@ -222,7 +222,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="namaSupplier">Nama Supplier</label>
-                                    <input type="text" class="form-control" name="nama_supplier" id="nama_supplier" placeholder="Masukkan Nama Supplier" value="<?php echo htmlspecialchars($row['nama_supplier']); ?>">
+                                    <input type="text" class="form-control" name="nama_supplier" id="nama_supplier" placeholder="Masukkan Nama Supplier" value="<?php echo htmlspecialchars($row['nama_supplier']); ?>" required>
                                 </div>
                                 <input type="submit" class="btn btn-success" name="submit" value="Submit">
                                 <a href="supplier.php" class="btn btn-secondary">Kembali</a>

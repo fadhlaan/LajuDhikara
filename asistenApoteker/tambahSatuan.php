@@ -186,7 +186,7 @@
                             <form method="post" action="prosesTambahSatuan.php">
                                 <div class="form-group">
                                     <label for="namaSatuan">Nama Satuan</label>
-                                    <input type="text" class="form-control" name="nama_satuan" id="nama_satuan" placeholder="Masukkan Nama Satuan">
+                                    <input type="text" class="form-control" name="nama_satuan" id="nama_satuan" placeholder="Masukkan Nama Satuan" required>
                                 </div>
                                 <button type="submit" name="submit" class="btn btn-success">Tambah Data</button>
                                 <a href="satuan.php" class="btn btn-secondary">Kembali</a>

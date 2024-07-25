@@ -1,4 +1,32 @@
+<?php
+include '../config.php';
+include '../checkRole.php';
+checkRole(['apoteker penanggung jawab']);
+?>
 <!DOCTYPE html>
+<?php
+require '../config.php';
+
+// Gantikan pemanggilan query() dengan mysqli_query()
+$conn = mysqli_connect("localhost", "root", "", "db_laju");
+$penjualan_result = mysqli_query($conn, "SELECT
+penj.*,
+p.bulan AS bulan,
+p.tahun AS tahun,
+o.nama_obat,
+j.nama_jenis,
+s.nama_satuan
+FROM penjualan penj
+JOIN periode p ON penj.id_periode = p.id_periode
+JOIN obat o ON penj.id_obat = o.id_obat
+JOIN jenis j ON o.id_jenis = j.id_jenis
+JOIN satuan s ON o.id_satuan = s.id_satuan;");
+
+// Periksa apakah kueri berhasil sebelum melanjutkan
+if ($penjualan_result) {
+    $penjualan = mysqli_fetch_all($penjualan_result, MYSQLI_ASSOC);
+}
+?>
 <html lang="en">
 
 <head>
@@ -9,7 +37,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Dashboard</title>
+    <title>Pengadaan</title>
 
     <!-- Custom fonts for this template-->
     <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -31,7 +59,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
                 <div class="sidebar-brand-icon icon-size">
                     <img src="../img/Logo.png" alt="Logo" style="width: 50px; height: 50px;">
                 </div>
@@ -42,17 +70,50 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Beranda -->
-            <li class="nav-item active">
-                <a class="nav-link" href="index.html">
+            <li class="nav-item">
+                <a class="nav-link" href="index.php">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Beranda</span></a>
             </li>
 
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            
+            <!-- Nav Item - Tables -->
+            <li class="nav-item">
+                <a class="nav-link" href="obatMasuk.php">
+                    <i class="fas fa-fw fa-dolly-flatbed"></i>
+                    <span>Obat Masuk</span></a>
+            </li>
+
+            
+            <!-- Nav Item - Tables -->
+            <li class="nav-item">
+                <a class="nav-link" href="penjualan.php">
+                    <i class="fas fa-fw fa-money-bill-wave"></i>
+                    <span>Penjualan</span></a>
+            </li>
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item active">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
+                    aria-expanded="true" aria-controls="collapsePages">
+                    <i class="fas fa-fw fa-folder"></i>
+                    <span>Pengadaan</span>
+                </a>
+                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="stok.php"><i class="fas fa-pills"></i> Pengecekan Stok</a>
+                        <a class="collapse-item" href="perencanaan.php"><i class="fas fa-truck"></i> Perencanaan</a>
+                    </div>
+                </div>
+            </li>
             <!-- Nav Item - Charts -->
             <li class="nav-item">
-                <a class="nav-link" href="pengguna.php">
-                    <i class="fas fa-fw fa-users"></i>
-                    <span>Pengguna</span></a>
+                <a class="nav-link" href="pembelian.php">
+                    <i class="fas fa-fw fa-shopping-cart"></i>
+                    <span>Pembelian</span></a>
             </li>
 
             <!-- Divider -->
@@ -98,7 +159,7 @@
                                             placeholder="Search for..." aria-label="Search"
                                             aria-describedby="basic-addon2">
                                         <div class="input-group-append">
-                                            <button the="btn btn-primary" type="button">
+                                            <button class="btn btn-primary" type="button">
                                                 <i class="fas fa-search fa-sm"></i>
                                             </button>
                                         </div>
@@ -113,7 +174,7 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Admin</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Apoteker Penanggung Jawab</span>
                                 <img class="img-profile rounded-circle"
                                     src="../img/undraw_profile.svg">
                             </a>
@@ -135,32 +196,56 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
-                    <!-- Page Heading -->
-                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Beranda</h1>
-                    </div>
-
-                    <!-- Content Row -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <a href="pengguna.php" class="btn btn-primary shadow h-100 py-2 w-100 d-flex flex-column align-items-center justify-content-center">
-                                <div class="icon mb-2">
-                                    <i class="fas fa-users fa-2x text-white"></i>
-                                </div>
-                                <div the="text-center">
-                                    <div class="h5 mb-0 font-weight-bold text-white">Pengguna</div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    
                     <div class="container-fluid">
                         <!-- DataTales Example -->
                         <div class="card shadow mb-4">
-                            
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">Data Pengadaan</h6>
+                            </div>
+                            <div class="d-flex justify-content-between mb-3 mt-3 mx-3">
+                                  <form class="form-inline">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control bg-light border-0 small"
+                                            placeholder="Search for..." aria-label="Search"
+                                            aria-describedby="basic-addon2">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-primary" type="button">
+                                                <i class="fas fa-search fa-sm"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
                             <div class="card-body">
-                                <div class="text-center">
-                                    <h1 class="h4 mb-4 text-gray-800">Selamat Datang Admin</h1>
-                                    <img src="../img/logo.png" alt="Logo PT. Laju Dhikara Abadi" style="width: 25%; height: auto;">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                                <th>No</th>
+                                                <th>Bulan</th>
+                                                <th>Tahun</th>
+                                                <th>Obat</th>
+                                                <th>Jenis</th>
+                                                <th>Satuan</th>
+                                                <th>Jumlah Penjualan</th>
+        
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        <?php $i = 1; ?>
+                                        <?php foreach ($penjualan as $row) : ?>
+                                        <tr>
+                                        <td><?php echo htmlspecialchars($i++); ?></td>
+                                        <td><?php echo htmlspecialchars($row['bulan']); ?></td>
+                                        <td><?php echo htmlspecialchars($row['tahun']); ?></td>
+                                        <td><?php echo htmlspecialchars($row['nama_obat']); ?></td>
+                                        <td><?php echo htmlspecialchars($row['nama_jenis']); ?></td>
+                                        <td><?php echo htmlspecialchars($row['nama_satuan']); ?></td>
+                                        <td><?php echo htmlspecialchars($row['jumlah_penjualan']); ?></td>
+                                        </tr>
+                                        <?php endforeach; ?>     
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -172,7 +257,15 @@
             </div>
             <!-- End of Main Content -->
 
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; PT. Laju Dhikara Abadi 2024</span>
+                    </div>
+                </div>
             </footer>
+            <!-- End of Footer -->
 
         </div>
         <!-- End of Content Wrapper -->
@@ -194,12 +287,12 @@
                     <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
-                    </button
+                    </button>
                 </div>
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="../login.html">Logout</a>
+                    <a class="btn btn-primary" href="../login.php">Logout</a>
                 </div>
             </div>
         </div>

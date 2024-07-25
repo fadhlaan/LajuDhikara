@@ -1,5 +1,8 @@
 <?php
 
+include '../checkRole.php';
+checkRole(['admin']);
+
 require '../config.php';
 
 

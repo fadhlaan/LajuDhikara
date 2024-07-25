@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <?php
 require '../config.php';
-
+include '../checkRole.php';
+checkRole(['apoteker penanggung jawab']);
 // Gantikan pemanggilan query() dengan mysqli_query()
 $conn = mysqli_connect("localhost", "root", "", "db_laju");
 $penjualan_result = mysqli_query($conn, "SELECT

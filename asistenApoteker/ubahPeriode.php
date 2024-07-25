@@ -1,17 +1,43 @@
 <!DOCTYPE html>
 <?php
-require '../config.php';
+    include "../config.php";
 
-// Gantikan pemanggilan query() dengan mysqli_query()
-$conn = mysqli_connect("localhost", "root", "", "db_laju");
-$periode_result = mysqli_query($conn, "SELECT * FROM periode");
+    // Periksa koneksi
+    if (!$conn) {
+        die("Koneksi gagal: " . mysqli_connect_error());
+    }
+    
+    // Ambil id_pengguna dari query string
+    $get_id = $_GET['id_periode'] ?? null;
+    
+    // Periksa apakah id_pengguna ada dalam query string
+    if (!$get_id) {
+        die("ID Jenis tidak ditemukan. Pastikan Anda mengirimkan ID Jenis yang benar.");
+    }
+    
+    // Jalankan query untuk mendapatkan data pengguna dengan menggunakan prepared statement untuk mencegah SQL injection
+    $stmt = $conn->prepare("SELECT * FROM periode WHERE id_periode=?");
+    $stmt->bind_param("s", $get_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    
+    // Periksa apakah query berhasil
+    if (!$result) {
+        die("Query gagal: " . mysqli_error($conn));
+    }
+    
+    // Ambil hasil query
+    $row = $result->fetch_assoc();
+    
+    // Periksa apakah hasil query kosong
+    if (!$row) {
+        die("Jenis dengan ID tersebut tidak ditemukan. Apakah Anda yakin ID Jenis tersebut ada?");
+    }
 
-// Periksa apakah kueri berhasil sebelum melanjutkan
-if ($periode_result) {
-    $periode = mysqli_fetch_all($periode_result, MYSQLI_ASSOC);
-} else {
-    echo "Gagal mengambil data satuan. Silakan coba lagi.";
-}
+    // Ambil data bulan dari database
+    $resBulan = $conn->query("SELECT * FROM periode"); // Pastikan tabel bulan ada
+    $selectedBulan = $row['bulan']; // Ambil bulan dari hasil query periode
+    $selectedTahun = $row['tahun']; // Ambil bulan dari hasil query periode
 ?>
 <html lang="en">
 
@@ -23,7 +49,7 @@ if ($periode_result) {
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Periode</title>
+    <title>Ubah Periode</title>
 
     <!-- Custom fonts for this template-->
     <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -191,51 +217,38 @@ if ($periode_result) {
                         <!-- DataTales Example -->
                         <div class="card shadow mb-4">
                             <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary">Data Periode</h6>
-                            </div>
-                            <div class="d-flex justify-content-between mb-3 mt-3 mx-3">
-                                <a href="tambahPeriode.php" class="btn btn-success" type="button">Tambah Data</a>
-                                <form class="form-inline">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control bg-light border-0 small"
-                                            placeholder="Search for..." aria-label="Search"
-                                            aria-describedby="basic-addon2">
-                                        <div class="input-group-append">
-                                            <button class="btn btn-primary" type="button">
-                                                <i class="fas fa-search fa-sm"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </form>
+                                <h6 class="m-0 font-weight-bold text-primary">Ubah Periode</h6>
                             </div>
                             <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                        <thead>
-                                            <tr>
-                                                <th>No</th>
-                                                <th>Bulan</th>
-                                                <th>Tahun</th>
-                                                <th>Aksi</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tbody>
-                                            <?php $i = 1; ?>
-                                        <?php foreach ($periode as $row) : ?>
-                                            <tr>
-                                                <td><?php echo ($i++); ?></td>
-                                                <td><?php echo htmlspecialchars($row['bulan']); ?></td>
-                                                <td><?php echo htmlspecialchars($row['tahun']); ?></td>
-                                                <td>
-                                                    <a class="btn btn-primary" href="ubahPeriode.php?id_periode=<?php echo htmlspecialchars($row['id_periode']); ?>">Edit</a>
-                                                    <a class="btn btn-danger" href="#" onclick="konfirmasiHapus(<?php echo $row['id_periode']; ?>)">Hapus</a>
-                                                </td>
-                                            </tr>
-                                            <?php endforeach; ?>
-                                        </tbody>
-                                    </table>
+                            <form method="post" action="prosesUbahPeriode.php">
+                                <div class="form-group">
+                                    <label for="idPeriode">ID Periode</label>
+                                    <input type="text" class="form-control" name="id_periode" id="id_periode" placeholder="" value="<?php echo htmlspecialchars($row['id_periode']); ?>" readonly>
                                 </div>
+                                <div class="form-group">
+                                    <label for="bulan">Bulan</label>
+                                    <select class="form-control" name="bulan" id="bulan" required>
+                                        <?php while ($rowBulan = $resBulan->fetch_assoc()) : ?>
+                                            <option value="<?= $rowBulan['id_periode']; ?>" <?= ($rowBulan['bulan'] == $selectedBulan) ? 'selected' : ''; ?>>
+                                                <?= htmlspecialchars($rowBulan['bulan']); ?>
+                                            </option>
+                                        <?php endwhile; ?>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="tahun">Tahun</label>
+                                    <select class="form-control" name="tahun" id="tahun" required>
+                                        <?php
+                                            $currentYear = date("Y");
+                                            for ($i = $currentYear; $i >= $currentYear - 10; $i--) {
+                                                echo "<option value='" . $i . "' " . ($i == $selectedTahun ? 'selected' : '') . ">" . htmlspecialchars($i) . "</option>";
+                                            }
+                                        ?>  
+                                    </select>
+                                </div>
+                                <input type="submit" class="btn btn-success" name="submit" value="Submit">
+                                <a href="periode.php" class="btn btn-secondary">Kembali</a>
+                            </form>
                             </div>
                         </div>
     
@@ -303,13 +316,6 @@ if ($periode_result) {
     <!-- Page level custom scripts -->
     <script src="../js/demo/chart-area-demo.js"></script>
     <script src="../js/demo/chart-pie-demo.js"></script>
-    <script>
-        function konfirmasiHapus(id_periode) {
-            if (confirm('Yakin Ingin Menghapus Data?')) {
-                window.location.href = 'hapusPeriode.php?id_periode=' + id_periode;
-            }
-        }
-    </script>
 
 </body>
 

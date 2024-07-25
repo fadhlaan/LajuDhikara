@@ -212,7 +212,7 @@ if (!$res) {
                                 </div>
                                 <div class="form-group">
                                     <label for="namaObat">Nama Obat</label>
-                                    <input type="text" class="form-control" name="nama_obat" id="namaObat" value="<?php echo $row['nama_obat']; ?>" placeholder="Masukkan Nama Obat">
+                                    <input type="text" class="form-control" name="nama_obat" id="namaObat" value="<?php echo $row['nama_obat']; ?>" placeholder="Masukkan Nama Obat" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="jenisObat">Jenis</label>

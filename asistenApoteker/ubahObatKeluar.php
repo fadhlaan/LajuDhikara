@@ -1,9 +1,9 @@
 <?php
 require '../config.php';
 
-$id_penjualan = $_GET['id_penjualan'];
+$id_obatkeluar = $_GET['id_obatkeluar'];
 
-$query = "SELECT * FROM penjualan WHERE id_penjualan = $id_penjualan";
+$query = "SELECT * FROM obat_keluar WHERE id_obatkeluar = $id_obatkeluar";
 $result = mysqli_query($conn, $query);
 $row = mysqli_fetch_assoc($result);
 
@@ -98,9 +98,9 @@ $resObat = mysqli_query($conn, $queryObat);
             
             <!-- Nav Item - Tables -->
             <li class="nav-item">
-                <a class="nav-link" href="penjualan.php">
+                <a class="nav-link" href="obatKeluar.php">
                     <i class="fas fa-fw fa-money-bill-wave"></i>
-                    <span>Penjualan</span></a>
+                    <span>Obat Keluar</span></a>
             </li>
             
             <!-- Nav Item - Charts -->
@@ -197,8 +197,8 @@ $resObat = mysqli_query($conn, $queryObat);
                                 <h6 class="m-0 font-weight-bold text-primary">Edit Data Obat</h6>
                             </div>
                             <div class="card-body">
-                            <form method="POST" action="prosesUbahPenjualan.php">
-                                <input type="hidden" name="id_penjualan" value="<?= $row['id_penjualan']; ?>">
+                            <form method="POST" action="prosesUbahObatKeluar.php">
+                                <input type="hidden" name="id_obatkeluar" value="<?= $row['id_obatkeluar']; ?>">
                                 <div class="form-group">
                                     <label for="bulan">Bulan:</label>
                                     <select class="form-control" id="bulan" name="bulan" required>
@@ -233,8 +233,12 @@ $resObat = mysqli_query($conn, $queryObat);
                                     <label for="jumlah_penjualan">Jumlah Penjualan:</label>
                                     <input type="number" class="form-control" id="jumlah_penjualan" name="jumlah_penjualan" value="<?= $row['jumlah_penjualan']; ?>" required>
                                 </div>
+                                <div class="form-group">
+                                    <label for="jumlah_penjualan">Jumlah Kadaluarsa:</label>
+                                    <input type="number" class="form-control" id="jumlah_kadaluarsa" name="jumlah_kadaluarsa" value="<?= $row['jumlah_kadaluarsa']; ?>" required>
+                                </div>
                                 <button type="submit" class="btn btn-primary">Ubah Data</button>
-                                <a href="penjualan.php" class="btn btn-secondary">Kembali</a>
+                                <a href="obatKeluar.php" class="btn btn-secondary">Kembali</a>
                             </form>
                             </div>
                         </div>

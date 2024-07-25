@@ -15,7 +15,7 @@ p.tahun AS tahun,
 o.nama_obat,
 j.nama_jenis,
 s.nama_satuan
-FROM penjualan penj
+FROM obat_keluar penj
 JOIN periode p ON penj.id_periode = p.id_periode
 JOIN obat o ON penj.id_obat = o.id_obat
 JOIN jenis j ON o.id_jenis = j.id_jenis
@@ -108,9 +108,9 @@ if ($penjualan_result) {
             
             <!-- Nav Item - Tables -->
             <li class="nav-item active">
-                <a class="nav-link" href="penjualan.php">
+                <a class="nav-link" href="obatKeluar.php">
                     <i class="fas fa-fw fa-money-bill-wave"></i>
-                    <span>Penjualan</span></a>
+                    <span>Obat Keluar</span></a>
             </li>
             
             <!-- Nav Item - Charts -->
@@ -204,10 +204,10 @@ if ($penjualan_result) {
                         <!-- DataTales Example -->
                         <div class="card shadow mb-4">
                             <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary">Data Penjualan</h6>
+                                <h6 class="m-0 font-weight-bold text-primary">Data Obat Keluar</h6>
                             </div>
                             <div class="d-flex justify-content-between mb-3 mt-3 mx-3">
-                            <a href="tambahPenjualan.php" class="btn btn-success">Tambah Data</a>
+                            <a href="tambahObatKeluar.php" class="btn btn-success">Tambah Data</a>
                                 <form class="form-inline">
                                     <div class="input-group">
                                         <input type="text" class="form-control bg-light border-0 small"
@@ -233,7 +233,9 @@ if ($penjualan_result) {
                                                 <th>Jenis</th>
                                                 <th>Satuan</th>
                                                 <th>Jumlah Penjualan</th>
+                                                <th>Jumlah Kadaluarsa</th>
                                                 <th>Aksi</th>
+                                                
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -247,9 +249,10 @@ if ($penjualan_result) {
                                         <td><?php echo htmlspecialchars($row['nama_jenis']); ?></td>
                                         <td><?php echo htmlspecialchars($row['nama_satuan']); ?></td>
                                         <td><?php echo htmlspecialchars($row['jumlah_penjualan']); ?></td>
+                                        <td><?php echo htmlspecialchars($row['jumlah_kadaluarsa']); ?></td>
                                         <td>
-                                            <a class="btn btn-warning" href="ubahPenjualan.php?id_penjualan=<?php echo htmlspecialchars($row['id_penjualan']); ?>">Edit</a>
-                                            <a class="btn btn-danger" href="hapusPenjualan.php?id_penjualan=<?php echo htmlspecialchars($row['id_penjualan']); ?>" onclick="konfirmasiHapus(<?php echo $row['id_penjualan']; ?>)">Hapus</a>
+                                            <a class="btn btn-warning" href="ubahObatKeluar.php?id_obatkeluar=<?php echo htmlspecialchars($row['id_obatkeluar']); ?>">Edit</a>
+                                            <a class="btn btn-danger" href="hapusObatKeluar.php?id_obatkeluar=<?php echo htmlspecialchars($row['id_obatkeluar']); ?>" onclick="konfirmasiHapus(<?php echo $row['id_obatkeluar']; ?>)">Hapus</a>
                                         </td>
                                         </tr>
                                         <?php endforeach; ?>

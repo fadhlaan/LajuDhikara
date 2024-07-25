@@ -204,12 +204,12 @@ checkRole(['asisten apoteker']);
                             </a>
                         </div>
                         <div class="col-xl-3 col-md-6 mb-4">
-                            <a href="penjualan.php" class="btn btn-primary shadow h-100 py-2 w-100 d-flex flex-column align-items-center justify-content-center">
+                            <a href="obatKeluar.php" class="btn btn-primary shadow h-100 py-2 w-100 d-flex flex-column align-items-center justify-content-center">
                                 <div class="icon mb-2">
                                     <i class="fas fa-money-bill-wave fa-2x text-white"></i>
                                 </div>
                                 <div class="text-center">
-                                    <div class="h5 mb-0 font-weight-bold text-white">Penjualan</div>
+                                    <div class="h5 mb-0 font-weight-bold text-white">Obat Keluar</div>
                                 </div>
                             </a>
                         </div>

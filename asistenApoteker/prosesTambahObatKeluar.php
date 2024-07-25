@@ -7,6 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $id_periode_tahun = $_POST['tahun'];
     $id_obat = $_POST['nama_obat']; // Menggunakan nama_obat untuk mendapatkan id_obat
     $jumlah_penjualan = $_POST['jumlah_penjualan'];
+    $jumlah_kadaluarsa = $_POST['jumlah_kadaluarsa'];
 
     // Query untuk mendapatkan bulan dan tahun dari tabel periode berdasarkan id_periode
     $queryPeriodeBulan = "SELECT bulan FROM periode WHERE id_periode = '$id_periode_bulan'";
@@ -21,10 +22,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $tahun = $rowPeriodeTahun['tahun'];
 
         // Masukkan data ke tabel obat_masuk
-        $queryInsert = "INSERT INTO penjualan (id_periode, bulan, tahun, id_obat, jumlah_penjualan) VALUES ('$id_periode_bulan', '$bulan', '$tahun', '$id_obat', '$jumlah_penjualan')";
+        $queryInsert = "INSERT INTO obat_keluar (id_periode, bulan, tahun, id_obat, jumlah_penjualan, jumlah_kadaluarsa) VALUES ('$id_periode_bulan', '$bulan', '$tahun', '$id_obat', '$jumlah_penjualan', '$jumlah_kadaluarsa')";
 
         if (mysqli_query($conn, $queryInsert)) {
-            echo "<script>alert('Data berhasil ditambahkan.'); window.location.href='penjualan.php';</script>";
+            echo "<script>alert('Data berhasil ditambahkan.'); window.location.href='obatKeluar.php';</script>";
         } else {
             echo "Error: " . $queryInsert . "<br>" . mysqli_error($conn);
         }

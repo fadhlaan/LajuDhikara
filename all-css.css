@@ -1,0 +1,88 @@
+/* Add this CSS to your stylesheet for table scroll functionality */
+.table-scroll {
+  overflow-y: auto; /* Enable vertical scrolling */
+  max-height: 400px; /* Set a maximum height for the table */
+  display: block; /* Make the table a block element */
+}
+
+.table-scroll thead,
+.table-scroll tbody {
+  display: table; /* Ensure thead and tbody are displayed as tables */
+  width: 150%; /* Set width to 100% */
+  table-layout: fixed; /* Prevent table layout from changing */
+}
+
+.table-scroll tbody {
+  overflow-y: auto; /* Enable vertical scrolling for tbody */
+  max-height: 300px; /* Set a maximum height for tbody */
+  display: block; /* Make tbody a block element */
+}
+
+/* CSS untuk memperbaiki tampilan tabel */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th {
+  padding: 12px 15px; /* Menambahkan padding untuk sel */
+  text-align: left; /* Menyelaraskan teks ke kiri */
+  border: 1px solid #ddd; /* Menambahkan border pada sel */
+}
+
+.table td {
+  background-color: #f2f2f2; /* Warna latar belakang untuk header */
+  padding: 12px 15px; /* Menambahkan padding untuk sel */
+  text-align: left; /* Menyelaraskan teks ke kiri */
+  border: 1px solid #ddd; /* Menambahkan border pada sel */
+  width: 9.2%;
+}
+
+.table tr:nth-child(even) {
+  background-color: #f9f9f9; /* Warna latar belakang untuk baris genap */
+}
+
+.table tr:hover {
+  background-color: #f1f1f1; /* Warna latar belakang saat hover */
+}
+
+.table .edit-button {
+  color: white; /* Warna teks tombol edit */
+  border: none; /* Menghilangkan border tombol */
+  padding: 8px 12px; /* Padding untuk tombol */
+  cursor: pointer; /* Menunjukkan bahwa tombol dapat diklik */
+}
+
+.table .edit-button:hover {
+  background-color: #45a049; /* Warna latar belakang saat hover pada tombol edit */
+}
+
+.input-group.cari {
+  width: 100%; /* Mengatur lebar input group menjadi 100% */
+  max-width: 600px; /* Mengatur lebar maksimum sesuai kebutuhan */
+  margin: 10px 0px; /* Menambahkan margin atas dan bawah, serta mengatur posisi tengah */
+}
+
+.input-group.cari .form-control {
+  width: 80%; /* Mengatur lebar input menjadi 80% dari lebar input group */
+}
+
+.input-group.cari .btn {
+  width: 20%; /* Mengatur lebar tombol menjadi 20% dari lebar input group */
+}
+
+.btn-outline-primary {
+  background-color: #007bff; /* Mengatur warna latar belakang tombol */
+  color: white; /* Mengatur warna teks tombol */
+  border-color: #007bff; /* Mengatur warna border tombol */
+}
+
+.btn-outline-primary:hover {
+  background-color: #0056b3; /* Mengatur warna latar belakang saat hover */
+  border-color: #0056b3; /* Mengatur warna border saat hover */
+  color: white; /* Mengatur warna teks saat hover */
+}
+
+.btn-outline-primary:focus {
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5); /* Menambahkan efek fokus */
+}

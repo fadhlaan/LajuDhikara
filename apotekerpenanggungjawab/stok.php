@@ -2,6 +2,8 @@
 include '../config.php';
 include '../checkRole.php';
 checkRole(['apoteker penanggung jawab']);
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -204,7 +206,6 @@ checkRole(['apoteker penanggung jawab']);
                                                 <th>Jenis</th>
                                                 <th>Satuan</th>
                                                 <th>Sisa Stok</th>
-    
                                             </tr>
                                         </thead>
                                         <tbody>

@@ -56,7 +56,7 @@ checkRole(['apoteker penanggung jawab']);
 
             <!-- Divider -->
             <hr class="sidebar-divider">
-            
+
             <!-- Nav Item - Tables -->
             <li class="nav-item">
                 <a class="nav-link" href="obatMasuk.php">
@@ -64,30 +64,27 @@ checkRole(['apoteker penanggung jawab']);
                     <span>Obat Masuk</span></a>
             </li>
 
-            
             <!-- Nav Item - Tables -->
             <li class="nav-item">
-                <a class="nav-link" href="penjualphp">
+                <a class="nav-link" href="obatKeluar.php">
                     <i class="fas fa-fw fa-money-bill-wave"></i>
-                    <span>Penjualan</span></a>
+                    <span>Obat Keluar</span></a>
             </li>
-    
             
             <!-- Nav Item - Pages Collapse Menu -->
-     <!-- Nav Item - Pages Collapse Menu -->
-     <li class="nav-item active">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-            aria-expanded="true" aria-controls="collapsePages">
-            <i class="fas fa-fw fa-folder"></i>
-            <span>Pengadaan</span>
-        </a>
-        <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="stok.php"><i class="fas fa-pills"></i> Pengecekan Stok</a>
-                <a class="collapse-item" href="perencanaan.php"><i class="fas fa-truck"></i> Perencanaan</a>
-            </div>
-        </div>
-    </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
+                    aria-expanded="true" aria-controls="collapsePages">
+                    <i class="fas fa-fw fa-folder"></i>
+                    <span>Pengadaan</span>
+                </a>
+                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="stok.php"><i class="fas fa-pills"></i>Pengecekan Stok</a>
+                        <a class="collapse-item" href="perencanaan.php"><i class="fas fa-truck"></i> Perencanaan</a>
+                    </div>
+                </div>
+            </li>
             <!-- Nav Item - Charts -->
             <li class="nav-item">
                 <a class="nav-link" href="pembelian.php">
@@ -190,7 +187,7 @@ checkRole(['apoteker penanggung jawab']);
                                         <div class="input-group-append">
                                             <button class="btn btn-primary" type="button">
                                                 <i class="fas fa-search fa-sm"></i>
-                                            </button>x
+                                            </button>
                                         </div>
                                     </div>
                                 </form>

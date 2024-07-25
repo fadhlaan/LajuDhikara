@@ -57,20 +57,18 @@ checkRole(['apoteker penanggung jawab']);
             <!-- Divider -->
             <hr class="sidebar-divider">
 
-
-                        <!-- Nav Item - Tables -->
+            <!-- Nav Item - Tables -->
             <li class="nav-item">
                 <a class="nav-link" href="obatMasuk.php">
                     <i class="fas fa-fw fa-dolly-flatbed"></i>
                     <span>Obat Masuk</span></a>
             </li>
 
-            
             <!-- Nav Item - Tables -->
             <li class="nav-item">
-                <a class="nav-link" href="penjualan.php">
+                <a class="nav-link" href="obatKeluar.php">
                     <i class="fas fa-fw fa-money-bill-wave"></i>
-                    <span>Penjualan</span></a>
+                    <span>Obat Keluar</span></a>
             </li>
             
             <!-- Nav Item - Pages Collapse Menu -->
@@ -82,7 +80,7 @@ checkRole(['apoteker penanggung jawab']);
                 </a>
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="stok.php"><i class="fas fa-pills"></i> Pengecekan Stok</a>
+                        <a class="collapse-item" href="stok.php"><i class="fas fa-pills"></i>Pengecekan Stok</a>
                         <a class="collapse-item" href="perencanaan.php"><i class="fas fa-truck"></i> Perencanaan</a>
                     </div>
                 </div>

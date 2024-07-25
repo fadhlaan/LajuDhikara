@@ -224,7 +224,7 @@ if ($obat_masuk_result) {
                                 </form>
                             </div>
                             <div class="card-body">
-                                < class="table-responsive">
+                                <div class="table-responsive">
                                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                         <thead>
                                             <tr>

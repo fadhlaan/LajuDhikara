@@ -5,22 +5,22 @@ include '../checkRole.php';
 checkRole(['apoteker penanggung jawab']);
 // Gantikan pemanggilan query() dengan mysqli_query()
 $conn = mysqli_connect("localhost", "root", "", "db_laju");
-$penjualan_result = mysqli_query($conn, "SELECT
+$obat_keluar_result = mysqli_query($conn, "SELECT
 penj.*,
 p.bulan AS bulan,
 p.tahun AS tahun,
 o.nama_obat,
 j.nama_jenis,
 s.nama_satuan
-FROM penjualan penj
+FROM obat_keluar penj
 JOIN periode p ON penj.id_periode = p.id_periode
 JOIN obat o ON penj.id_obat = o.id_obat
 JOIN jenis j ON o.id_jenis = j.id_jenis
 JOIN satuan s ON o.id_satuan = s.id_satuan;");
 
 // Periksa apakah kueri berhasil sebelum melanjutkan
-if ($penjualan_result) {
-    $penjualan = mysqli_fetch_all($penjualan_result, MYSQLI_ASSOC);
+if ($obat_keluar_result) {
+    $obat_keluar = mysqli_fetch_all($obat_keluar_result, MYSQLI_ASSOC);
 }
 ?>
 <html lang="en">
@@ -33,7 +33,7 @@ if ($penjualan_result) {
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Penjualan</title>
+    <title>Obat Keluar</title>
 
     <!-- Custom fonts for this template-->
     <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -76,7 +76,6 @@ if ($penjualan_result) {
             <!-- Divider -->
             <hr class="sidebar-divider">
 
-            
             <!-- Nav Item - Tables -->
             <li class="nav-item">
                 <a class="nav-link" href="obatMasuk.php">
@@ -84,13 +83,13 @@ if ($penjualan_result) {
                     <span>Obat Masuk</span></a>
             </li>
 
-            
             <!-- Nav Item - Tables -->
             <li class="nav-item active">
-                <a class="nav-link" href="penjualan.php">
+                <a class="nav-link" href="obatKeluar.php">
                     <i class="fas fa-fw fa-money-bill-wave"></i>
-                    <span>Penjualan</span></a>
+                    <span>Obat Keluar</span></a>
             </li>
+            
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
@@ -100,7 +99,7 @@ if ($penjualan_result) {
                 </a>
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="stok.php"><i class="fas fa-pills"></i> Pengecekan Stok</a>
+                        <a class="collapse-item" href="stok.php"><i class="fas fa-pills"></i>Pengecekan Stok</a>
                         <a class="collapse-item" href="perencanaan.php"><i class="fas fa-truck"></i> Perencanaan</a>
                     </div>
                 </div>
@@ -196,7 +195,7 @@ if ($penjualan_result) {
                         <!-- DataTales Example -->
                         <div class="card shadow mb-4">
                             <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary">Data Penjualan</h6>
+                                <h6 class="m-0 font-weight-bold text-primary">Data Obat Keluar</h6>
                             </div>
                             <div class="d-flex justify-content-between mb-3 mt-3 mx-3">
                                   <form class="form-inline">
@@ -224,12 +223,12 @@ if ($penjualan_result) {
                                                 <th>Jenis</th>
                                                 <th>Satuan</th>
                                                 <th>Jumlah Penjualan</th>
-        
+                                                <th>Jumlah Kadaluarsa</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                         <?php $i = 1; ?>
-                                        <?php foreach ($penjualan as $row) : ?>
+                                        <?php foreach ($obat_keluar as $row) : ?>
                                         <tr>
                                         <td><?php echo htmlspecialchars($i++); ?></td>
                                         <td><?php echo htmlspecialchars($row['bulan']); ?></td>
@@ -238,6 +237,7 @@ if ($penjualan_result) {
                                         <td><?php echo htmlspecialchars($row['nama_jenis']); ?></td>
                                         <td><?php echo htmlspecialchars($row['nama_satuan']); ?></td>
                                         <td><?php echo htmlspecialchars($row['jumlah_penjualan']); ?></td>
+                                        <td><?php echo htmlspecialchars($row['jumlah_kadaluarsa']); ?></td>
                                         </tr>
                                         <?php endforeach; ?>     
                                         </tbody>

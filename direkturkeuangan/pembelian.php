@@ -1,3 +1,7 @@
+<?php
+include '../checkRole.php';
+checkRole(['direktur keuangan']);
+?>
 <!DOCTYPE html>
 <html lang="en">
 

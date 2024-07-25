@@ -47,7 +47,7 @@ if ($pengguna_result) {
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
                 <div class="sidebar-brand-icon icon-size">
                     <img src="../img/Logo.png" alt="Logo" style="width: 50px; height: 50px;">
                 </div>
@@ -59,7 +59,7 @@ if ($pengguna_result) {
 
             <!-- Nav Item - Beranda -->
             <li class="nav-item">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="index.php">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Beranda</span></a>
             </li>
@@ -73,7 +73,7 @@ if ($pengguna_result) {
             
             <!-- Nav Item - Charts -->
             <li class="nav-item">
-                <a class="nav-link" href="pengguna.html">
+                <a class="nav-link" href="pengguna.php">
                     <i class="fas fa-fw fa-users"></i>
                     <span>Pengguna</span></a>
             </li>

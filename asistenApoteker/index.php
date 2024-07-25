@@ -85,9 +85,9 @@ checkRole(['asisten apoteker']);
             
             <!-- Nav Item - Tables -->
             <li class="nav-item">
-                <a class="nav-link" href="penjualan.php">
+                <a class="nav-link" href="obatKeluar.php">
                     <i class="fas fa-fw fa-money-bill-wave"></i>
-                    <span>Penjualan</span></a>
+                    <span>Obat Keluar</span></a>
             </li>
             
             <!-- Nav Item - Charts -->

@@ -1,3 +1,7 @@
+<?php
+include '../checkRole.php';
+checkRole(['direktur utama']);
+?>
 <!DOCTYPE html>
 <html lang="en">
 

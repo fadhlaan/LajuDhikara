@@ -1,7 +1,43 @@
 <?php
-include '../config.php';
+require '../config.php';
 include '../checkRole.php';
 checkRole(['apoteker penanggung jawab']);
+
+$conn = mysqli_connect("localhost", "root", "", "db_laju");
+
+// Query yang diperbarui
+$stok_query = "
+    SELECT
+        o.nama_obat,
+        j.nama_jenis,
+        sat.nama_satuan,
+        COALESCE(SUM(om.jumlah_penerimaan), 0) - COALESCE(SUM(ok.jumlah_penjualan), 0) AS sisa_stok
+    FROM
+        obat o
+    LEFT JOIN
+        jenis j ON o.id_jenis = j.id_jenis
+    LEFT JOIN
+        satuan sat ON o.id_satuan = sat.id_satuan
+    LEFT JOIN
+        stok s ON o.id_obat = s.id_obat
+    LEFT JOIN
+        obat_masuk om ON o.id_obat = om.id_obat
+    LEFT JOIN
+        obat_keluar ok ON o.id_obat = ok.id_obat
+    GROUP BY
+        o.id_obat, o.nama_obat, j.nama_jenis, sat.nama_satuan, s.sisa_stok
+";
+
+$stok_result = mysqli_query($conn, $stok_query);
+
+// Periksa apakah kueri berhasil sebelum melanjutkan
+if ($stok_result) {
+    $stok = mysqli_fetch_all($stok_result, MYSQLI_ASSOC);
+} else {
+    echo "Error: " . mysqli_error($conn);
+}
+
+mysqli_close($conn);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -198,8 +234,6 @@ checkRole(['apoteker penanggung jawab']);
                                         <thead>
                                             <tr>
                                                 <th>No</th>
-                                                <th>Bulan</th>
-                                                <th>Tahun</th>
                                                 <th>Obat</th>
                                                 <th>Jenis</th>
                                                 <th>Satuan</th>
@@ -208,17 +242,16 @@ checkRole(['apoteker penanggung jawab']);
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>Januari</td>
-                                                <td>2024</td>
-                                                <td>Paracetamol</td>
-                                                <td>k</td>
-                                                <td>botol</td>
-                                                <td>10</td>
-                                           
-                                                </td>
-                                            </tr>
+                                        <?php $i = 1; ?>
+                                        <?php foreach ($stok as $row) : ?>
+                                        <tr>
+                                        <td><?php echo htmlspecialchars($i++); ?></td>
+                                        <td><?php echo htmlspecialchars($row['nama_obat']); ?></td>
+                                        <td><?php echo htmlspecialchars($row['nama_jenis']); ?></td>
+                                        <td><?php echo htmlspecialchars($row['nama_satuan']); ?></td>
+                                        <td><?php echo htmlspecialchars($row['sisa_stok']); ?></td>
+                                        </tr>
+                                        <?php endforeach; ?>     
                                         </tbody>
                                     </table>
                                 </div>

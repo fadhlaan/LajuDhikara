@@ -11,7 +11,7 @@ $stok_query = "
         o.nama_obat,
         j.nama_jenis,
         sat.nama_satuan,
-        COALESCE(SUM(om.jumlah_penerimaan), 0) - COALESCE(SUM(ok.jumlah_penjualan), 0) AS sisa_stok
+        s.sisa_stok
     FROM
         obat o
     LEFT JOIN
@@ -20,12 +20,6 @@ $stok_query = "
         satuan sat ON o.id_satuan = sat.id_satuan
     LEFT JOIN
         stok s ON o.id_obat = s.id_obat
-    LEFT JOIN
-        obat_masuk om ON o.id_obat = om.id_obat
-    LEFT JOIN
-        obat_keluar ok ON o.id_obat = ok.id_obat
-    GROUP BY
-        o.id_obat, o.nama_obat, j.nama_jenis, sat.nama_satuan, s.sisa_stok
 ";
 
 $stok_result = mysqli_query($conn, $stok_query);
@@ -246,10 +240,11 @@ mysqli_close($conn);
                                         <?php foreach ($stok as $row) : ?>
                                         <tr>
                                         <td><?php echo htmlspecialchars($i++); ?></td>
-                                        <td><?php echo htmlspecialchars($row['nama_obat']); ?></td>
-                                        <td><?php echo htmlspecialchars($row['nama_jenis']); ?></td>
-                                        <td><?php echo htmlspecialchars($row['nama_satuan']); ?></td>
-                                        <td><?php echo htmlspecialchars($row['sisa_stok']); ?></td>
+                                        <td><?php echo htmlspecialchars($row['nama_obat'] ?? ''); ?></td>
+                                        <td><?php echo htmlspecialchars($row['nama_jenis'] ?? ''); ?></td>
+                                        <td><?php echo htmlspecialchars($row['nama_satuan'] ?? ''); ?></td>
+                                        <td><?php echo htmlspecialchars($row['sisa_stok'] ?? ''); ?></td>
+
                                         </tr>
                                         <?php endforeach; ?>     
                                         </tbody>

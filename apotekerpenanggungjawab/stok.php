@@ -32,6 +32,7 @@ if ($stok_result) {
 }
 
 mysqli_close($conn);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -232,7 +233,6 @@ mysqli_close($conn);
                                                 <th>Jenis</th>
                                                 <th>Satuan</th>
                                                 <th>Sisa Stok</th>
-    
                                             </tr>
                                         </thead>
                                         <tbody>

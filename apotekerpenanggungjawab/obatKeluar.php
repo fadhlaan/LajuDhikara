@@ -44,7 +44,7 @@ if ($obat_keluar_result) {
     <!-- Custom styles for this template-->
     <link href="../css/sb-admin-2.min.css" rel="stylesheet">
 
-</hphp
+</head>
 
 <body id="page-top">
 

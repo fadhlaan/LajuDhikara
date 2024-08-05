@@ -29,7 +29,6 @@ if ($obat_masuk_result) {
 }
 ?>
 <html lang="en">
-
 <head>
 
     <meta charset="utf-8">
@@ -206,7 +205,7 @@ if ($obat_masuk_result) {
                         <!-- DataTales Example -->
                         <div class="card shadow mb-4">
                             <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary">Data Obat Masuk</h6>
+                                <h6 class="m-0 font-weight-bold text-primary">Data Stok Obat</h6>
                             </div>
                             <div class="d-flex justify-content-between mb-3 mt-3 mx-3">
                                 <a href="tambahObatMasuk.php" class="btn btn-success">Tambah Data</a>
